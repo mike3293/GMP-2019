@@ -1,0 +1,50 @@
+#include "stdafx.h"
+
+unsigned char** divideText(In::IN in)		// формирование массива строк, состоящего из лексем
+{
+	int size = in.size;
+	unsigned char* text = in.text;
+	unsigned char** word = new unsigned char*[MAX_WORDS]; //выделение памяти для разделения лексем
+	for (int i = 0; i < MAX_WORDS; i++)
+		word[i] = new unsigned char[WORD_SIZE] {NULL};
+
+	bool findSP, findLit = false; //флаги сепараторов и литералов
+	int j = 0;
+
+	for (int i = 0, k = 0; i < size - 1; i++, k++) //проход текста
+	{
+		findSP = false;
+		if (text[i] == '\'') //если найден литерал
+			findLit = !findLit;
+
+			if (((in.code[(unsigned char)text[i]] == In::IN::S) || (text[i] == DIV)) && !findLit) //проверка на сепаратор
+			{
+				findSP = true;				  
+				if (word[j][0] != NULL)
+				{
+					word[j++][k] = IN_CODE_ENDL; //признак завершенности слова
+					k = 0;
+				}
+				if (text[i] == ' ') //если пробел - пропускаем
+				{
+					k = -1;
+					continue;
+				}
+				word[j][k++] = text[i]; //запись сепаратора
+				word[j++][k] = IN_CODE_ENDL; //признак завершения разбора лексемы
+				k = -1;
+			}
+		//}
+		if (!findSP)		//если не сепаратор
+			word[j][k] = text[i];		//переписывем
+	}
+	word[j] = NULL;
+	//for (int i = 0; i < j; i++) //проверка
+	//{
+	//	if (!strcmp((char*)word[i], ""))
+	//		return NULL;
+	//	std::cout << i << ">"<< word[i] << " ";
+	//}
+	return word;
+}
+
