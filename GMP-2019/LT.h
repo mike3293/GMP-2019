@@ -7,9 +7,10 @@
 #define LEX_ID			'i'	// лексема для идентификатора
 #define LEX_LITERAL		'l'	// лексема для литерала
 #define LEX_FUNCTION	'f'	// лексема для function
-#define LEX_DECLARE		'd'	// лексема для declare
+#define LEX_VAR			'd'	// лексема для var
 #define LEX_RETURN		'r'	// лексема для return
 #define LEX_PRINT		'p'	// лексема для print
+#define LEX_IF			'c'	// лексема для if
 #define LEX_MAIN		'm'	// лексема для main
 #define LEX_SEMICOLON	';'	// лексема для ;
 #define LEX_COMMA		','	// лексема для ,

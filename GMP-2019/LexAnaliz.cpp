@@ -48,11 +48,21 @@ namespace Lex
 
 			bool findSameID = false; 
 
+			FST::FST fstDeclare(word[i], FST_IF); // проверка на ключевое слово
+			if (FST::execute(fstDeclare))
+			{
+				LT::Entry entryLT;
+				writeEntry(entryLT, LEX_VAR, LT_TI_NULLIDX, line); //создание структуры
+				LT::Add(lextable, entryLT); //добавление структуры в таблицу
+				position += _mbslen(word[i]) + 1;
+				continue;
+			}
+
 			FST::FST fstDeclare(word[i], FST_DECLARE); // проверка на ключевое слово
 			if (FST::execute(fstDeclare))
 			{
 				LT::Entry entryLT;
-				writeEntry(entryLT, LEX_DECLARE, LT_TI_NULLIDX, line); //создание структуры
+				writeEntry(entryLT, LEX_VAR, LT_TI_NULLIDX, line); //создание структуры
 				LT::Add(lextable, entryLT); //добавление структуры в таблицу
 				position += _mbslen(word[i]) + 1;
 				continue;
@@ -152,7 +162,7 @@ namespace Lex
 					int idx = IT::IsIDRegion(idtable, word[i]);	
 					if (idx != TI_NULLIDX)					
 					{
-						if (lextable.table[indexLex - 2].lexema == LEX_DECLARE)
+						if (lextable.table[indexLex - 2].lexema == LEX_VAR)
 							throw ERROR_THROW_IN(114, line, position);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);
@@ -165,7 +175,7 @@ namespace Lex
 					idx = IT::IsIDRegion(idtable, word[i]);
 					if (idx != TI_NULLIDX)		// если такой идентификатор уже есть
 					{
-						if (lextable.table[indexLex - 2].lexema == LEX_DECLARE)
+						if (lextable.table[indexLex - 2].lexema == LEX_VAR)
 							throw ERROR_THROW_IN(114, line, position);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);

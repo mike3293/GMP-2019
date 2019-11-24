@@ -1,14 +1,15 @@
 #pragma once
 #include "FST.h"
 
-#define FST_DECLARE 8,	\
-	FST::NODE(1, FST::RELATION('d', 1)),\
-	FST::NODE(1, FST::RELATION('e', 2)),\
-	FST::NODE(1, FST::RELATION('c', 3)),\
-	FST::NODE(1, FST::RELATION('l', 4)),\
-	FST::NODE(1, FST::RELATION('a', 5)),\
-	FST::NODE(1, FST::RELATION('r', 6)),\
-	FST::NODE(1, FST::RELATION('e', 7)),\
+#define FST_IF 3,	\
+	FST::NODE(1, FST::RELATION('i', 1)),\
+	FST::NODE(1, FST::RELATION('f', 2)),\
+	FST::NODE()
+
+#define FST_DECLARE 4,	\
+	FST::NODE(1, FST::RELATION('v', 1)),\
+	FST::NODE(1, FST::RELATION('a', 2)),\
+	FST::NODE(1, FST::RELATION('r', 3)),\
 	FST::NODE()
 
 #define FST_INTEGER 8,	\
@@ -21,13 +22,11 @@
 	FST::NODE(1, FST::RELATION('r', 7)),\
 	FST::NODE()
 
-#define FST_STRING 7,	\
-	FST::NODE(1, FST::RELATION('s', 1)),\
-	FST::NODE(1, FST::RELATION('t', 2)),\
-	FST::NODE(1, FST::RELATION('r', 3)),\
-	FST::NODE(1, FST::RELATION('i', 4)),\
-	FST::NODE(1, FST::RELATION('n', 5)),\
-	FST::NODE(1, FST::RELATION('g', 6)),\
+#define FST_STRING 5,	\
+	FST::NODE(1, FST::RELATION('l', 1)),\
+	FST::NODE(1, FST::RELATION('i', 2)),\
+	FST::NODE(1, FST::RELATION('n', 3)),\
+	FST::NODE(1, FST::RELATION('e', 4)),\
 	FST::NODE()
 
 #define FST_FUNCTION 9,	\
