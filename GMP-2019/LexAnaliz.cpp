@@ -27,6 +27,7 @@ namespace Lex
 		int indexID = 0;		// индекс идент.
 		int countLit = 1;		// счетчик литералов
 		int line = 1;			// номер строки
+		int enterCount = 0;		// кол-во main
 
 		unsigned char emptystr[] = "";	// пустая строка
 		unsigned char* regionPrefix = new unsigned char[10]{ "" };	// текущий префикс
@@ -136,7 +137,7 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_MAIN, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-
+				enterCount++;
 				_mbscpy(oldRegionPrefix, regionPrefix);
 				_mbscpy(regionPrefix, word[i]);
 				continue;
@@ -389,6 +390,14 @@ namespace Lex
 				continue;
 			}
 			throw ERROR_THROW_IN(115, line, 0);
+		}
+		if (enterCount == 0)
+		{
+			throw ERROR_THROW_IN(500, 0, 0);
+		}
+		if (enterCount > 1)
+		{
+			throw ERROR_THROW_IN(501, 0, 0);
 		}
 		lex.idtable = idtable;
 		lex.lextable = lextable;
