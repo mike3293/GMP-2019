@@ -28,12 +28,12 @@ int _tmain(int argc, _TCHAR ** argv)
 		LT::Delete(lex.lextable);
 		IT::Delete(lex.idtable);*/
 
-		/*MFST::Mfst mfst(lex, GRB::getGreibach());
-		mfst.start();*/
+		MFST::Mfst mfst(lex, GRB::getGreibach());
+		mfst.start();
 		// mfst.savededucation();
-		//mfst.printrules();
+		mfst.printrules();
 		LT::showTable(lex.lextable, log);
-		IT::showTable(lex.idtable);
+		//IT::showTable(lex.idtable);
 
 		system("pause");
 		Log::Close(log);
