@@ -11,6 +11,8 @@
 #define LEX_RETURN		'r'	// лексема для return
 #define LEX_PRINT		'p'	// лексема для print
 #define LEX_IF			'c'	// лексема для if
+#define LEX_ELSE		'e'	// лексема для else
+#define LEX_LOGICAL		'o'	// лексема для логических операторов
 #define LEX_MAIN		'm'	// лексема для main
 #define LEX_SEMICOLON	';'	// лексема для ;
 #define LEX_COMMA		','	// лексема для ,

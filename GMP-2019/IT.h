@@ -1,5 +1,5 @@
 #pragma once
-#define ID_MAXSIZE		6			// максимальное количество символов в идентификаторе
+#define ID_MAXSIZE		8			// максимальное количество символов в идентификаторе
 #define TI_MAXSIZE		4096		// максимальное количество строк в таблице идентификаторов
 #define TI_INT_DEFAULT	0x00000000	// значение по умолчанию для типа integer
 #define TI_STR_DEFAULT	0x00		// значение по умолчанию для типа string
@@ -20,7 +20,7 @@ namespace IT			// таблица идентификаторов
 		IDTYPE		idtype;							// тип идентификатора
 		union
 		{
-			int vint;								// значение integer
+			unsigned short vint;								// значение integer
 			struct
 			{
 				unsigned char len;						// количество символов в string

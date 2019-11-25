@@ -27,7 +27,6 @@ namespace Lex
 		int indexID = 0;		// индекс идент.
 		int countLit = 1;		// счетчик литералов
 		int line = 1;			// номер строки
-		int position = 0;		// номер позиции в исходном файле
 
 		unsigned char emptystr[] = "";	// пустая строка
 		unsigned char* regionPrefix = new unsigned char[10]{ "" };	// текущий префикс
@@ -48,13 +47,30 @@ namespace Lex
 
 			bool findSameID = false; 
 
-			FST::FST fstDeclare(word[i], FST_IF); // проверка на ключевое слово
-			if (FST::execute(fstDeclare))
+			FST::FST fstIf(word[i], FST_IF); // проверка на ключевое слово
+			if (FST::execute(fstIf))
 			{
 				LT::Entry entryLT;
-				writeEntry(entryLT, LEX_VAR, LT_TI_NULLIDX, line); //создание структуры
+				writeEntry(entryLT, LEX_IF, LT_TI_NULLIDX, line); //создание структуры
 				LT::Add(lextable, entryLT); //добавление структуры в таблицу
-				position += _mbslen(word[i]) + 1;
+				continue;
+			}
+
+			FST::FST fstElse(word[i], FST_ELSE); // проверка на ключевое слово
+			if (FST::execute(fstElse))
+			{
+				LT::Entry entryLT;
+				writeEntry(entryLT, LEX_ELSE, LT_TI_NULLIDX, line); //создание структуры
+				LT::Add(lextable, entryLT); //добавление структуры в таблицу
+				continue;
+			}
+			
+			FST::FST fstLogical(word[i], FST_LOGICAL); // проверка на ключевое слово
+			if (FST::execute(fstLogical))
+			{
+				LT::Entry entryLT;
+				writeEntry(entryLT, LEX_LOGICAL, LT_TI_NULLIDX, line); //создание структуры
+				LT::Add(lextable, entryLT); //добавление структуры в таблицу
 				continue;
 			}
 
@@ -64,7 +80,6 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_VAR, LT_TI_NULLIDX, line); //создание структуры
 				LT::Add(lextable, entryLT); //добавление структуры в таблицу
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstTypeInteger(word[i], FST_INTEGER);// проверка на ключевое слово
@@ -75,7 +90,6 @@ namespace Lex
 				LT::Add(lextable, entryLT);
 
 				entryIT.iddatatype = IT::INT; //запись типа идентификатора в структуру
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstTypeString(word[i], FST_STRING);// проверка на ключевое слово
@@ -87,7 +101,6 @@ namespace Lex
 
 				entryIT.iddatatype = IT::STR;			//запись типа идентификатора в структуру
 				_mbscpy(entryIT.value.vstr.str, emptystr); //очистка строки для записи идентификатора
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstFunction(word[i], FST_FUNCTION);// проверка на ключевое слово
@@ -99,7 +112,6 @@ namespace Lex
 
 				entryIT.idtype = IT::F;
 				findFunc = true; //установка флага функции
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstReturn(word[i], FST_RETURN);// проверка на ключевое слово
@@ -108,7 +120,6 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_RETURN, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstPrint(word[i], FST_PRINT);// проверка на ключевое слово
@@ -117,7 +128,6 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_PRINT, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstMain(word[i], FST_MAIN);// проверка на ключевое слово
@@ -129,7 +139,6 @@ namespace Lex
 
 				_mbscpy(oldRegionPrefix, regionPrefix);
 				_mbscpy(regionPrefix, word[i]);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstIdentif(word[i], FST_ID); //проверка на идентификатор
@@ -137,8 +146,8 @@ namespace Lex
 			{
 				FST::FST fstLibFunc(word[i], FST_LIBFUNC); //проверка на substr и strlen
 
-				if((_mbslen(word[i]) > 5) && !(FST::execute(fstLibFunc)))
-					throw ERROR_THROW_IN(116, line, position);
+				if((_mbslen(word[i]) > ID_MAXSIZE - 1) && !(FST::execute(fstLibFunc)))
+					throw ERROR_THROW_IN(116, line, 0);
 				_mbscpy(startWord, word[i]);
 
 				// поиск такого же
@@ -148,12 +157,11 @@ namespace Lex
 					if (idx != TI_NULLIDX)						// если такой идентификатор уже есть
 					{
 						if (lextable.table[indexLex-1].lexema == LEX_FUNCTION)
-							throw ERROR_THROW_IN(114, line, position);
+							throw ERROR_THROW_IN(114, line, 0);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);
 						LT::Add(lextable, entryLT);
 						findFunc = false;
-						position += _mbslen(word[i]) + 1;
 						continue;
 					}
 				}
@@ -163,11 +171,10 @@ namespace Lex
 					if (idx != TI_NULLIDX)					
 					{
 						if (lextable.table[indexLex - 2].lexema == LEX_VAR)
-							throw ERROR_THROW_IN(114, line, position);
+							throw ERROR_THROW_IN(114, line, 0);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);
 						LT::Add(lextable, entryLT);
-						position += _mbslen(word[i]) + 1;
 						continue;
 					}
 					_mbscpy(bufRegionPrefix, regionPrefix);
@@ -176,11 +183,10 @@ namespace Lex
 					if (idx != TI_NULLIDX)		// если такой идентификатор уже есть
 					{
 						if (lextable.table[indexLex - 2].lexema == LEX_VAR)
-							throw ERROR_THROW_IN(114, line, position);
+							throw ERROR_THROW_IN(114, line, 0);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);
 						LT::Add(lextable, entryLT);
-						position += _mbslen(word[i]) + 1;
 						continue;
 					}
 				}
@@ -212,14 +218,24 @@ namespace Lex
 				_mbscpy(entryIT.idRegion, word[i]);
 				IT::Add(idtable, entryIT);
 				findFunc = false;
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 
 			FST::FST fstLiteralInt(word[i], FST_INTLIT); //если литерал 
-			if (FST::execute(fstLiteralInt))
+			FST::FST fstLiteralHex(word[i], FST_HEXLIT);
+
+			if (FST::execute(fstLiteralInt) || FST::execute(fstLiteralHex))
 			{
-				int value = atoi((char*)word[i]);	// значение литерала
+				unsigned short value;
+				char* buf;
+				if (word[i][1] == 'x')
+				{
+					value = strtoll((const char*)word[i], NULL, 16);
+				}
+				else
+				{
+					value = atoi((char*)word[i]);	// значение литерала
+				}
 				for (int k = 0; k < idtable.size; k++) // поиск такого же
 				{
 					if (idtable.table[k].value.vint == value && idtable.table[k].idtype == IT::L)
@@ -233,7 +249,6 @@ namespace Lex
 			}
 				if (findSameID)	// если был найден такой же
 				{
-					position += _mbslen(word[i]) + 1;
 					continue;
 				}
 					
@@ -252,7 +267,6 @@ namespace Lex
 				_mbscpy(entryIT.id, word[i]);
 				_mbscpy(entryIT.idRegion, emptystr);
 				IT::Add(idtable, entryIT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstLiteralString(word[i], FST_STRLIT);
@@ -281,7 +295,6 @@ namespace Lex
 				_mbscpy(entryIT.id, nameLiteral);
 				_mbscpy(entryIT.idRegion, emptystr);
 				IT::Add(idtable, entryIT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 
@@ -304,7 +317,6 @@ namespace Lex
 				entryIT.idxfirstLE = indexLex;
 				entryIT.idtype = IT::OP;
 				IT::Add(idtable, entryIT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstSemicolon(word[i], FST_SEMICOLON);
@@ -313,7 +325,6 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_SEMICOLON, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstComma(word[i], FST_COMMA);
@@ -322,7 +333,6 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_COMMA, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstLeftBrace(word[i], FST_LEFTBRACE);
@@ -331,7 +341,6 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_LEFTBRACE, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstRightBrace(word[i], FST_BRACELET);
@@ -340,7 +349,6 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_BRACELET, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstLeftThesis(word[i], FST_LEFTTHESIS);
@@ -352,7 +360,6 @@ namespace Lex
 				LT::Add(lextable, entryLT);
 				if (idtable.table[indexID - 1].idtype == IT::F)
 					findParm = true;
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstRightThesis(word[i], FST_RIGHTTHESIS);
@@ -366,7 +373,6 @@ namespace Lex
 					_mbscpy(regionPrefix, oldRegionPrefix);		// возвращаем предыдущую обл. видимости
 				findParm = false;
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
 			FST::FST fstEqual(word[i], FST_EQUAL);
@@ -375,17 +381,14 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_EQUAL, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
-				position += _mbslen(word[i]) + 1;
 				continue;
 			}
-			position += _mbslen(word[i]) + 1;
 			if (word[i][0] == DIV) {
 				line++;
-				position = 0;
 				indexLex--;
 				continue;
 			}
-			throw ERROR_THROW_IN(115, line, position);
+			throw ERROR_THROW_IN(115, line, 0);
 		}
 		lex.idtable = idtable;
 		lex.lextable = lextable;

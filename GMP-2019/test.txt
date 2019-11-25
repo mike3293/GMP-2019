@@ -5,7 +5,7 @@ main
 	var integer a;
 	var integer b;
 	var integer result;
-	b = 0x0010;
+	b = 0x0011;
 		
 	name1 = "Mikhail";
 	name2 = name1;

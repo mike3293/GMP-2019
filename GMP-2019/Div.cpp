@@ -14,7 +14,7 @@ unsigned char** divideText(In::IN in)		// формирование массива строк, состоящего
 	for (int i = 0, k = 0; i < size - 1; i++, k++) //проход текста
 	{
 		findSP = false;
-		if (text[i] == '\'') //если найден литерал
+		if (text[i] == '\"') //если найден литерал
 			findLit = !findLit;
 
 			if (((in.code[(unsigned char)text[i]] == In::IN::S) || (text[i] == DIV)) && !findLit) //проверка на сепаратор
@@ -30,7 +30,13 @@ unsigned char** divideText(In::IN in)		// формирование массива строк, состоящего
 					k = -1;
 					continue;
 				}
+
 				word[j][k++] = text[i]; //запись сепаратора
+				if (text[i + 1] == LEX_EQUAL)
+				{
+					word[j][k] = text[++i];
+				}
+
 				word[j++][k] = IN_CODE_ENDL; //признак завершения разбора лексемы
 				k = -1;
 			}
