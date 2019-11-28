@@ -24,14 +24,13 @@
 	FST::NODE(1, FST::RELATION('r', 3)),\
 	FST::NODE()
 
-#define FST_INTEGER 8,	\
-	FST::NODE(1, FST::RELATION('i', 1)),\
-	FST::NODE(1, FST::RELATION('n', 2)),\
-	FST::NODE(1, FST::RELATION('t', 3)),\
-	FST::NODE(1, FST::RELATION('e', 4)),\
-	FST::NODE(1, FST::RELATION('g', 5)),\
-	FST::NODE(1, FST::RELATION('e', 6)),\
-	FST::NODE(1, FST::RELATION('r', 7)),\
+#define FST_INTEGER 7,	\
+	FST::NODE(1, FST::RELATION('u', 1)),\
+	FST::NODE(1, FST::RELATION('s', 2)),\
+	FST::NODE(1, FST::RELATION('h', 3)),\
+	FST::NODE(1, FST::RELATION('o', 4)),\
+	FST::NODE(1, FST::RELATION('r', 5)),\
+	FST::NODE(1, FST::RELATION('t', 6)),\
 	FST::NODE()
 
 #define FST_STRING 5,	\

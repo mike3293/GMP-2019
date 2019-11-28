@@ -87,7 +87,7 @@ namespace Lex
 			if (FST::execute(fstTypeInteger))
 			{
 				LT::Entry entryLT;
-				writeEntry(entryLT, LEX_INTEGER, LT_TI_NULLIDX, line);
+				writeEntry(entryLT, LEX_USHORT, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
 
 				entryIT.iddatatype = IT::INT; //запись типа идентификатора в структуру

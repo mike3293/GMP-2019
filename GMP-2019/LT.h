@@ -2,7 +2,7 @@
 #define LEXEMA_FIXSIZE	1			// фиксированный размер лексемы
 #define LT_MAXSIZE		4096		// максимальное количество строк в таблице лексем
 #define LT_TI_NULLIDX	0xfffffff	// нет элемента таблицы идентификаторов
-#define LEX_INTEGER		't'	// лексема для integer
+#define LEX_USHORT		't'	// лексема для integer
 #define LEX_STRING		't'	// лексема для string
 #define LEX_ID			'i'	// лексема для идентификатора
 #define LEX_LITERAL		'l'	// лексема для литерала

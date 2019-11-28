@@ -170,11 +170,19 @@ namespace MFST
 
 		switch (rc_step)
 		{
-		case LENTA_END:			MFST_TRACE4("------>LENTA_END")
-			std::cout << "--------------------------------------------------------------------------" << std::endl;
-			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d всего строк %d, синтаксический анализ выполнен без ошибок", 0, lenta_size);
-			std::cout << std::setw(4) << std::left << 0 << ": всего строк " << lenta_size << ", синтаксический анализ выполнен без ошибок" << std::endl;
-			rc = true;
+		case LENTA_END:
+			if (st.top() == '$')
+			{
+				MFST_TRACE4("------>LENTA_END")
+				std::cout << "--------------------------------------------------------------------------" << std::endl;
+				sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d всего строк %d, синтаксический анализ выполнен без ошибок", 0, lenta_size);
+				std::cout << std::setw(4) << std::left << 0 << ": всего строк " << lenta_size << ", синтаксический анализ выполнен без ошибок" << std::endl;
+				rc = true;
+			}
+			else
+			{
+				throw ERROR_THROW(600);
+			}
 			break;
 		case NS_NORULE:			MFST_TRACE4("------>NS_NURULE")
 			std::cout << "--------------------------------------------------------------------------" << std::endl;
