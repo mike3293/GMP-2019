@@ -75,19 +75,20 @@
 	FST::NODE(1, FST::RELATION('n', 4)),\
 	FST::NODE()
 
-#define FST_LIBFUNC 12,	\
-	FST::NODE(2, FST::RELATION('s', 1), FST::RELATION('s', 6)),\
-	FST::NODE(1, FST::RELATION('t', 2)),\
-	FST::NODE(1, FST::RELATION('r', 3)),\
-	FST::NODE(1, FST::RELATION('l', 4)),\
-	FST::NODE(1, FST::RELATION('e', 5)),\
-	FST::NODE(1, FST::RELATION('n', 11)),\
-	\
-	FST::NODE(1, FST::RELATION('u', 7)),\
-	FST::NODE(1, FST::RELATION('b', 8)),\
-	FST::NODE(1, FST::RELATION('s', 9)), \
-	FST::NODE(1, FST::RELATION('t', 10)), \
-	FST::NODE(1, FST::RELATION('r', 11)), \
+#define FST_LIB_COMPARE 8,	\
+	FST::NODE(1, FST::RELATION('c', 1)),\
+	FST::NODE(1, FST::RELATION('o', 2)),\
+	FST::NODE(1, FST::RELATION('m', 3)),\
+	FST::NODE(1, FST::RELATION('p', 4)),\
+	FST::NODE(1, FST::RELATION('a', 5)),\
+	FST::NODE(1, FST::RELATION('r', 6)),\
+	FST::NODE(1, FST::RELATION('e', 7)),\
+	FST::NODE()
+
+#define FST_LIB_POW 4,	\
+	FST::NODE(1, FST::RELATION('p', 1)),\
+	FST::NODE(1, FST::RELATION('o', 2)),\
+	FST::NODE(1, FST::RELATION('w', 3)),\
 	FST::NODE()
 
 #define FST_ID 3,	\

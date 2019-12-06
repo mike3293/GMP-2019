@@ -36,6 +36,7 @@
 #include "PolishNotation.h"
 #include "Greibach.h"
 #include "MFST.h"
+#include "SemAnaliz.h"
 
 
 

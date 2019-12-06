@@ -23,11 +23,10 @@ namespace GRB
 		Rule(
 			NS('N'), 
 			GRB_ERROR_SERIES + 1,    // конструкции в функциях
-			16,                                
+			14,                                
 			Rule::Chain(5, TS('d'), TS('t'), TS('i'), TS(';'), NS('N')),
 			Rule::Chain(4, TS('i'), TS('='), NS('E'), TS(';')),
 			Rule::Chain(5, TS('i'), TS('='), NS('E'), TS(';'), NS('N')),
-			Rule::Chain(9, TS('d'), TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS(';'), NS('N')),		// To del
 			Rule::Chain(4, TS('p'), TS('i'), TS(';'), NS('N')),
 			Rule::Chain(4, TS('p'), TS('l'), TS(';'), NS('N')),
 			Rule::Chain(4, TS('p'), NS('E'), TS(';'), NS('N')),
@@ -36,7 +35,6 @@ namespace GRB
 
 			Rule::Chain(3, TS('p'), NS('E'), TS(';')),
 			Rule::Chain(4, TS('d'), TS('t'), TS('i'), TS(';')),
-			Rule::Chain(8, TS('d'), TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS(';')),			// To del
 			Rule::Chain(3, TS('p'), TS('i'), TS(';')),
 			Rule::Chain(3, TS('p'), TS('l'), TS(';')),
 			Rule::Chain(11, TS('c'), TS('('), NS('C'), TS(')'), TS('{'), NS('N'), TS('}'), TS('e'), TS('{'), NS('N'), TS('}')),
@@ -45,15 +43,19 @@ namespace GRB
 		Rule(
 			NS('E'), 
 			GRB_ERROR_SERIES + 2,    // ошибка в выражении
-			8,                                 
+			12,                                 
 			Rule::Chain(1, TS('i')),
 			Rule::Chain(1, TS('l')),
 			Rule::Chain(3, TS('('), NS('E'), TS(')')),
 			Rule::Chain(4, TS('i'), TS('('), NS('W'), TS(')')),
+			Rule::Chain(4, TS('b'), TS('('), NS('W'), TS(')')),
+			Rule::Chain(4, TS('a'), TS('('), NS('W'), TS(')')),
 			Rule::Chain(2, TS('i'), NS('M')),
 			Rule::Chain(2, TS('l'), NS('M')),
 			Rule::Chain(4, TS('('), NS('E'), TS(')'), NS('M')),
-			Rule::Chain(5, TS('i'), TS('('), NS('W'), TS(')'), NS('M'))
+			Rule::Chain(5, TS('i'), TS('('), NS('W'), TS(')'), NS('M')),
+			Rule::Chain(5, TS('b'), TS('('), NS('W'), TS(')'), NS('M')),
+			Rule::Chain(5, TS('a'), TS('('), NS('W'), TS(')'), NS('M'))
 		),
 		Rule(
 			NS('F'),

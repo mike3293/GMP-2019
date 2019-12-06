@@ -14,6 +14,8 @@
 #define LEX_ELSE		'e'	// лексема для else
 #define LEX_LOGICAL		'o'	// лексема для логических операторов
 #define LEX_MAIN		'm'	// лексема для main
+#define LEX_POW			'b'	// лексема для pow
+#define LEX_COMPARE		'a'	// лексема для compare
 #define LEX_SEMICOLON	';'	// лексема для ;
 #define LEX_COMMA		','	// лексема для ,
 #define LEX_LEFTBRACE	'{'	// лексема для {

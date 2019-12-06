@@ -32,6 +32,7 @@
     <ClCompile Include="MFST.cpp" />
     <ClCompile Include="Parm.cpp" />
     <ClCompile Include="PolishNotation.cpp" />
+    <ClCompile Include="SemAnaliz.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestLex.cpp" />
   </ItemGroup>
@@ -50,6 +51,7 @@
     <ClInclude Include="Parm.h" />
     <ClInclude Include="PolishNotation.h" />
     <ClInclude Include="Rule.h" />
+    <ClInclude Include="SemAnaliz.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

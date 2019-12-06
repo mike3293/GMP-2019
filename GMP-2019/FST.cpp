@@ -21,10 +21,8 @@ namespace FST
 		
 		for (size_t i = 0; i < n; i++)
 		{
-			/*std::cout << p[i].symbol << p[i].nnode << " ";*/
 			relations[i] = p[i];
 		}
-		/*std::cout << std::endl;*/
 	};
 
 	FST::FST(unsigned char* s, short ns, NODE n, ...)
@@ -68,12 +66,6 @@ namespace FST
 		{
 			fst.position++;
 			rc = step(fst, rstates);
-		/*	std::cout << "smth : "<< fst.string[fst.position] << std::endl;
-			for (int ant = 0; ant < 7; ant++)
-			{
-				std::cout << rstates[ant] << " ";
-			}
-			std::cout << std::endl;*/
 			
 		};
 		delete[] rstates;

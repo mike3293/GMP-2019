@@ -41,6 +41,7 @@ namespace Lex
 
 		bool findFunc = false;
 		bool findParm = false;
+		bool findDeclaration = false;
 		IT::Entry entryIT; //создание лексемы для занесения в табл идентификаторов 
 
 		for (int i = 0; word[i] != NULL; i++, indexLex++) //проход по всем лексемам
@@ -91,6 +92,7 @@ namespace Lex
 				LT::Add(lextable, entryLT);
 
 				entryIT.iddatatype = IT::INT; //запись типа идентификатора в структуру
+				findDeclaration = true;
 				continue;
 			}
 			FST::FST fstTypeString(word[i], FST_STRING);// проверка на ключевое слово
@@ -102,6 +104,7 @@ namespace Lex
 
 				entryIT.iddatatype = IT::STR;			//запись типа идентификатора в структуру
 				_mbscpy(entryIT.value.vstr.str, emptystr); //очистка строки для записи идентификатора
+				findDeclaration = true;
 				continue;
 			}
 			FST::FST fstFunction(word[i], FST_FUNCTION);// проверка на ключевое слово
@@ -145,9 +148,10 @@ namespace Lex
 			FST::FST fstIdentif(word[i], FST_ID); //проверка на идентификатор
 			if (FST::execute(fstIdentif))
 			{
-				FST::FST fstLibFunc(word[i], FST_LIBFUNC); //проверка на substr и strlen
+				FST::FST fstLibPow(word[i], FST_LIB_POW); //проверка
+				FST::FST fstLibCompare(word[i], FST_LIB_COMPARE); //проверка
 
-				if((_mbslen(word[i]) > ID_MAXSIZE - 1) && !(FST::execute(fstLibFunc)))
+				if(_mbslen(word[i]) > ID_MAXSIZE - 1)
 					throw ERROR_THROW_IN(116, line, 0);
 				_mbscpy(startWord, word[i]);
 
@@ -193,7 +197,6 @@ namespace Lex
 				}
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_ID, indexID++, line);
-				LT::Add(lextable, entryLT);
 				if (findParm)				// если параметр
 				{
 					entryIT.idtype = IT::P;
@@ -201,12 +204,33 @@ namespace Lex
 				else if (!findFunc) 
 				{
 					// если переменная
-					entryIT.idtype = IT::V;
-					if (entryIT.iddatatype == IT::INT)
-						entryIT.value.vint = TI_INT_DEFAULT;
-					if (entryIT.iddatatype == IT::STR) {
-						entryIT.value.vstr.len = 0;
-						memset(entryIT.value.vstr.str, TI_STR_DEFAULT, sizeof(char));
+					if (findDeclaration)
+					{
+						entryIT.idtype = IT::V;
+						if (entryIT.iddatatype == IT::INT)
+							entryIT.value.vint = TI_INT_DEFAULT;
+						if (entryIT.iddatatype == IT::STR) {
+							entryIT.value.vstr.len = 0;
+							memset(entryIT.value.vstr.str, TI_STR_DEFAULT, sizeof(char));
+						}
+						findDeclaration = false;
+					}
+					else
+					{
+						FST::FST fstLibPow(startWord, FST_LIB_POW);
+						FST::FST fstLibCompare(startWord, FST_LIB_COMPARE);
+						if (FST::execute(fstLibPow))
+						{
+							entryLT.lexema = LEX_POW;
+						}
+						else if (FST::execute(fstLibCompare))
+						{
+							entryLT.lexema = LEX_COMPARE;
+						}
+						else
+						{
+							throw ERROR_THROW_IN(203, line, 0);
+						}
 					}
 				}
 				else {		// если функция
@@ -214,6 +238,7 @@ namespace Lex
 					_mbscpy(regionPrefix, word[i]);
 				}
 
+				LT::Add(lextable, entryLT);
 				entryIT.idxfirstLE = indexLex;
 				_mbscpy(entryIT.id, startWord);
 				_mbscpy(entryIT.idRegion, word[i]);

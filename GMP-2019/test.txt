@@ -1,7 +1,7 @@
 ushort function min(ushort a, ushort b)
 {
 	var ushort result;
-	if (a > b){
+	if (b < a){
 		result = b;
 	} else {
 		result = a;
@@ -30,7 +30,7 @@ main
 	}
 	else
 	{
-		a = max(b, c);
+		a = min(b, c);
 	}
 	
 	if(a >= b)
@@ -38,3 +38,4 @@ main
 		print(b);
 	}
 	return 0;
+}
