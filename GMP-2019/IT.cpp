@@ -54,14 +54,14 @@ namespace IT
 			switch (idtable.table[i].idDataType)
 			{
 			case INT:
-				if (!(idtable.table[i].idtype == OP))
+				if (!(idtable.table[i].idType == OP))
 					std::cout << "integer" << " > "; break;
 			case STR:
-				if (!(idtable.table[i].idtype == OP))
+				if (!(idtable.table[i].idType == OP))
 					std::cout << "string" << " > "; break;
 			default: std::cout << "unknown" << " > "; break;
 			}
-			switch (idtable.table[i].idtype)
+			switch (idtable.table[i].idType)
 			{
 			case V: std::cout << "переменная > "; break;
 			case F: std::cout << "функция > "; break;
@@ -74,9 +74,9 @@ namespace IT
 			default: std::cout << "unknown > "; break;
 			}
 			std::cout << idtable.table[i].idxfirstLE << " > ";
-			if (idtable.table[i].idDataType == INT && (idtable.table[i].idtype == V || idtable.table[i].idtype == L))
+			if (idtable.table[i].idDataType == INT && (idtable.table[i].idType == V || idtable.table[i].idType == L))
 				std::cout << std::left << idtable.table[i].value.vint;
-			else if (idtable.table[i].idDataType == STR && (idtable.table[i].idtype == V || idtable.table[i].idtype == L))
+			else if (idtable.table[i].idDataType == STR && (idtable.table[i].idType == V || idtable.table[i].idType == L))
 				std::cout << "[" << (int)idtable.table[i].value.vstr.len << "]\"" << idtable.table[i].value.vstr.str << "\"";
 			else
 				std::cout << "нет значения";

@@ -114,7 +114,7 @@ namespace Lex
 				writeEntry(entryLT, LEX_FUNCTION, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
 
-				entryIT.idtype = IT::F;
+				entryIT.idType = IT::F;
 				findFunc = true; //установка флага функции
 				continue;
 			}
@@ -199,14 +199,14 @@ namespace Lex
 				writeEntry(entryLT, LEX_ID, indexID++, line);
 				if (findParm)				// если параметр
 				{
-					entryIT.idtype = IT::P;
+					entryIT.idType = IT::P;
 				}
 				else if (!findFunc) 
 				{
 					// если переменная
 					if (findDeclaration)
 					{
-						entryIT.idtype = IT::V;
+						entryIT.idType = IT::V;
 						if (entryIT.idDataType == IT::INT)
 							entryIT.value.vint = TI_INT_DEFAULT;
 						if (entryIT.idDataType == IT::STR) {
@@ -222,10 +222,12 @@ namespace Lex
 						if (FST::execute(fstLibPow))
 						{
 							entryLT.lexema = LEX_POW;
+							entryIT.idType = IT::LIB;
 						}
 						else if (FST::execute(fstLibCompare))
 						{
 							entryLT.lexema = LEX_COMPARE;
+							entryIT.idType = IT::LIB;
 						}
 						else
 						{
@@ -264,7 +266,7 @@ namespace Lex
 				}
 				for (int k = 0; k < idtable.size; k++) // поиск такого же
 				{
-					if (idtable.table[k].value.vint == value && idtable.table[k].idtype == IT::L)
+					if (idtable.table[k].value.vint == value && idtable.table[k].idType == IT::L)
 					{
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_LITERAL, k, line);
@@ -281,7 +283,7 @@ namespace Lex
 				LT::Entry entryLT;
 				writeEntry(entryLT, LEX_LITERAL, indexID++, line);
 				LT::Add(lextable, entryLT);
-				entryIT.idtype = IT::L;
+				entryIT.idType = IT::L;
 				entryIT.idDataType = IT::INT;
 				entryIT.value.vint = value;
 				entryIT.idxfirstLE = indexLex;	//номер в табл лексем
@@ -311,7 +313,7 @@ namespace Lex
 				LT::Add(lextable, entryLT);
 				_mbscpy(entryIT.value.vstr.str, word[i]);	// запись значиния строкового литерала
 				entryIT.value.vstr.len = length - 2;		// запись длины строкового литерала
-				entryIT.idtype = IT::L;
+				entryIT.idType = IT::L;
 				entryIT.idDataType = IT::STR;
 				entryIT.idxfirstLE = indexLex;
 				// формирование имени литерала
@@ -341,7 +343,7 @@ namespace Lex
 				LT::Add(lextable, entryLT);
 				_mbscpy(entryIT.id, word[i]);
 				entryIT.idxfirstLE = indexLex;
-				entryIT.idtype = IT::OP;
+				entryIT.idType = IT::OP;
 				IT::Add(idtable, entryIT);
 				continue;
 			}
@@ -384,7 +386,7 @@ namespace Lex
 				writeEntry(entryLT, LEX_LEFTTHESIS, LT_TI_NULLIDX, line);
 				entryLT.priority = 0;
 				LT::Add(lextable, entryLT);
-				if (idtable.table[indexID - 1].idtype == IT::F)
+				if (idtable.table[indexID - 1].idType == IT::F)
 					findParm = true;
 				continue;
 			}

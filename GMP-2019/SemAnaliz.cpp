@@ -9,6 +9,14 @@ namespace Sem
 		{
 			switch (tables.lextable.table[i].lexema)
 			{
+				case LEX_PRINT: // проверка print
+				{
+					i++;
+					if(tables.lextable.table[i++].lexema == LEX_LEFTTHESIS)
+						if (tables.lextable.table[i].lexema == LEX_ID || tables.lextable.table[i].lexema == LEX_LITERAL)
+							break;
+					throw ERROR_THROW_IN(509, tables.lextable.table[i].sn, 0);
+				}
 				case LEX_LOGICAL: // проверка логический операторов
 				{
 					IT::IDDATATYPE dataTypeLeftOp = tables.idtable.table[tables.lextable.table[i - 1].idxTI].idDataType;
@@ -61,7 +69,7 @@ namespace Sem
 
 					if (i > 0 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION)
 					{
-						if (tmp.idtype == IT::F) //функция, не процедура
+						if (tmp.idType == IT::F) //функция, не процедура
 						{
 							for (int k = i + 1; k != tables.lextable.size; k++)
 							{
@@ -84,7 +92,7 @@ namespace Sem
 					}
 					if (tables.lextable.table[i + 1].lexema == LEX_LEFTTHESIS && tables.lextable.table[i - 1].lexema != LEX_FUNCTION) // вызов
 					{
-						if (tmp.idtype == IT::F)
+						if (tmp.idType == IT::F)
 						{
 							
 							std::queue<LT::Entry> queue;

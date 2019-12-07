@@ -9,7 +9,7 @@
 namespace IT			// таблица идентификаторов
 {
 	enum IDDATATYPE { INT = 1, STR = 2 };			// типы данных идентификаторов: integer, string
-	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, OP = 5 };	// типы идентификаторов: переменная, функция, параметр, литерал, оператор
+	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, OP = 5, LIB = 6 };	// типы идентификаторов: переменная, функция, параметр, литерал, оператор
 
 	struct Entry	// строка таблицы идентификаторов
 	{
@@ -17,7 +17,7 @@ namespace IT			// таблица идентификаторов
 		unsigned char	idRegion[TI_STR_MAXSIZE];	// префиксы для области видимости
 		unsigned char	id[ID_MAXSIZE];				// индентификатор (автоматически усекается до ID_MAXSIZE)
 		IDDATATYPE	idDataType;						// тип данных
-		IDTYPE		idtype;							// тип идентификатора
+		IDTYPE		idType;							// тип идентификатора
 		union
 		{
 			unsigned short vint;								// значение integer

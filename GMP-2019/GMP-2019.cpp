@@ -38,7 +38,7 @@ int _tmain(int argc, _TCHAR ** argv)
 		LT::showTable(lex.lextable, log);
 		//IT::showTable(lex.idtable);
 
-		system("pause");
+		//system("pause");
 		Log::Close(log);
 	}
 	catch (Error::ERROR e)

@@ -1,4 +1,4 @@
-#ushort function min(ushort a, ushort b)
+[ushort function min(ushort a, ushort b)
 {
 	var ushort result;
 	if (b < a){
@@ -39,13 +39,13 @@ main
 	}
 	return 0;
 }
-#main
+]main
 {
 	var line name1;
 	var line name2;
 	var ushort a;
 	name1 = "Mikalai";
-	print(name1);
+	print("Mikhail");
 
 	return 0;
 }

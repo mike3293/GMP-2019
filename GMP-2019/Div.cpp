@@ -13,8 +13,8 @@ unsigned char** divideText(In::IN in)		// формирование массива строк, состоящего
 
 	for (int i = 0, k = 0; i < size - 1; i++, k++) //проход текста
 	{
-		if (text[i] == '#') {
-			for (i++; text[i] != '#';)
+		if (text[i] == '[') {
+			for (i++; text[i] != ']';)
 				i++;
 			i++;
 		}

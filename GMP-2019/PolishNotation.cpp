@@ -30,7 +30,7 @@ bool PolishNotation(int i, Lex::LEX& lex)
 		{
 		case LEX_ID:			
 		{
-			if (lex.idtable.table[lex.lextable.table[i].idxTI].idtype == IT::F)
+			if (lex.idtable.table[lex.lextable.table[i].idxTI].idType == IT::F)
 				findFunc = true;
 			queue.push(lex.lextable.table[i]);
 			continue;
