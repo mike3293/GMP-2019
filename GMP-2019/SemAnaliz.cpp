@@ -11,8 +11,8 @@ namespace Sem
 			{
 				case LEX_LOGICAL: // проверка логический операторов
 				{
-					IT::IDDATATYPE dataTypeLeftOp = tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype;
-					IT::IDDATATYPE dataTypeRightOp = tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype;
+					IT::IDDATATYPE dataTypeLeftOp = tables.idtable.table[tables.lextable.table[i - 1].idxTI].idDataType;
+					IT::IDDATATYPE dataTypeRightOp = tables.idtable.table[tables.lextable.table[i + 1].idxTI].idDataType;
 
 					if(dataTypeLeftOp != IT::INT || dataTypeRightOp != IT::INT)
 						throw ERROR_THROW_IN(508, tables.lextable.table[i].sn, 0);
@@ -28,7 +28,7 @@ namespace Sem
 						if (tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL)
 						{
 							paramsCount++;
-							IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].iddatatype;
+							IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].idDataType;
 							if (ctype != IT::INT)
 								throw ERROR_THROW_IN(506, tables.lextable.table[i].sn, 0);
 						}
@@ -46,7 +46,7 @@ namespace Sem
 						if (tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL)
 						{
 							paramsCount++;
-							IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].iddatatype;
+							IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].idDataType;
 							if (ctype != IT::STR)
 								throw ERROR_THROW_IN(507, tables.lextable.table[i].sn, 0);
 						}
@@ -72,7 +72,7 @@ namespace Sem
 									if (lexAfterReturn != TI_NULLIDX)
 									{
 										// тип функции и возвращаемого значения не совпадают
-										if (tables.idtable.table[lexAfterReturn].iddatatype != tmp.iddatatype)
+										if (tables.idtable.table[lexAfterReturn].idDataType != tmp.idDataType)
 										{
 											throw ERROR_THROW_IN(502, tables.lextable.table[k].sn, 0);
 										}
@@ -108,10 +108,10 @@ namespace Sem
 								// проверка соответствия передаваемых параметров прототипам
 								if (tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL)
 								{
-									IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].iddatatype;
+									IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].idDataType;
 									if (!queue.empty())
 									{
-										if (ctype != tables.idtable.table[queue.front().idxTI].iddatatype)
+										if (ctype != tables.idtable.table[queue.front().idxTI].idDataType)
 										{
 											// Несовпадение типов передаваемых параметров
 											throw ERROR_THROW_IN(504, tables.lextable.table[i].sn, 0);

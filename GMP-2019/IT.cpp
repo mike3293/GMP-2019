@@ -51,7 +51,7 @@ namespace IT
 			std::cout << i << " > ";
 			std::cout << idtable.table[i].id << " > ";
 			std::cout << idtable.table[i].idRegion << " > ";
-			switch (idtable.table[i].iddatatype)
+			switch (idtable.table[i].idDataType)
 			{
 			case INT:
 				if (!(idtable.table[i].idtype == OP))
@@ -74,9 +74,9 @@ namespace IT
 			default: std::cout << "unknown > "; break;
 			}
 			std::cout << idtable.table[i].idxfirstLE << " > ";
-			if (idtable.table[i].iddatatype == INT && (idtable.table[i].idtype == V || idtable.table[i].idtype == L))
+			if (idtable.table[i].idDataType == INT && (idtable.table[i].idtype == V || idtable.table[i].idtype == L))
 				std::cout << std::left << idtable.table[i].value.vint;
-			else if (idtable.table[i].iddatatype == STR && (idtable.table[i].idtype == V || idtable.table[i].idtype == L))
+			else if (idtable.table[i].idDataType == STR && (idtable.table[i].idtype == V || idtable.table[i].idtype == L))
 				std::cout << "[" << (int)idtable.table[i].value.vstr.len << "]\"" << idtable.table[i].value.vstr.str << "\"";
 			else
 				std::cout << "нет значения";

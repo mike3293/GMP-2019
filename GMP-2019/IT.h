@@ -16,7 +16,7 @@ namespace IT			// таблица идентификаторов
 		int			idxfirstLE;						// индекс первой строки в таблице лексем
 		unsigned char	idRegion[TI_STR_MAXSIZE];	// префиксы для области видимости
 		unsigned char	id[ID_MAXSIZE];				// индентификатор (автоматически усекается до ID_MAXSIZE)
-		IDDATATYPE	iddatatype;						// тип данных
+		IDDATATYPE	idDataType;						// тип данных
 		IDTYPE		idtype;							// тип идентификатора
 		union
 		{

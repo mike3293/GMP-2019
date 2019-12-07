@@ -91,7 +91,7 @@ namespace Lex
 				writeEntry(entryLT, LEX_USHORT, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
 
-				entryIT.iddatatype = IT::INT; //запись типа идентификатора в структуру
+				entryIT.idDataType = IT::INT; //запись типа идентификатора в структуру
 				findDeclaration = true;
 				continue;
 			}
@@ -102,7 +102,7 @@ namespace Lex
 				writeEntry(entryLT, LEX_STRING, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
 
-				entryIT.iddatatype = IT::STR;			//запись типа идентификатора в структуру
+				entryIT.idDataType = IT::STR;			//запись типа идентификатора в структуру
 				_mbscpy(entryIT.value.vstr.str, emptystr); //очистка строки для записи идентификатора
 				findDeclaration = true;
 				continue;
@@ -207,9 +207,9 @@ namespace Lex
 					if (findDeclaration)
 					{
 						entryIT.idtype = IT::V;
-						if (entryIT.iddatatype == IT::INT)
+						if (entryIT.idDataType == IT::INT)
 							entryIT.value.vint = TI_INT_DEFAULT;
-						if (entryIT.iddatatype == IT::STR) {
+						if (entryIT.idDataType == IT::STR) {
 							entryIT.value.vstr.len = 0;
 							memset(entryIT.value.vstr.str, TI_STR_DEFAULT, sizeof(char));
 						}
@@ -282,7 +282,7 @@ namespace Lex
 				writeEntry(entryLT, LEX_LITERAL, indexID++, line);
 				LT::Add(lextable, entryLT);
 				entryIT.idtype = IT::L;
-				entryIT.iddatatype = IT::INT;
+				entryIT.idDataType = IT::INT;
 				entryIT.value.vint = value;
 				entryIT.idxfirstLE = indexLex;	//номер в табл лексем
 				_itoa_s(countLit++, charCountLit, sizeof(char) * 10, 10);	// преобразуем значение счетчика в строку(charCountLit) 
@@ -312,7 +312,7 @@ namespace Lex
 				_mbscpy(entryIT.value.vstr.str, word[i]);	// запись значиния строкового литерала
 				entryIT.value.vstr.len = length - 2;		// запись длины строкового литерала
 				entryIT.idtype = IT::L;
-				entryIT.iddatatype = IT::STR;
+				entryIT.idDataType = IT::STR;
 				entryIT.idxfirstLE = indexLex;
 				// формирование имени литерала
 				_itoa_s(countLit++, charCountLit, sizeof(char) * 10, 10);	// преобразуем значение счетчика в строку(charCountLit)

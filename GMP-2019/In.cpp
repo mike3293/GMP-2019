@@ -3,14 +3,11 @@
 namespace In
 {
 
-	IN getin(wchar_t infile[], wchar_t outfile[])
+	IN getin(wchar_t infile[])
 	{
 		int currentLine = 0, currentCol = 0;
 		IN Info{ 0, 0, 0, nullptr, IN_CODE_TABLE };					//uniform инициализация (альтернатива == списки инициализации)
 		std::ifstream in(infile);									//открывает файл для чтения
-		std::ofstream out(outfile);									//открывает файл для записи
-		if (!out.is_open())											//проверка на открытие файла иначе ошибка
-			throw ERROR_THROW(110);
 		if (!in.is_open())											//проверка на открытие файла иначе ошибка
 			throw ERROR_THROW(110);
 		std::string fulltext;
@@ -53,8 +50,6 @@ namespace In
 		*Ptemp = IN_CODE_ENDL;										//признак конца строки
 		Info.size = strlen((char*)Info.text) ;			//количество символо = количество всех элем - \n
 		unsigned char *str = new unsigned char[Info.size];
-		out << Info.text;
-		out.close();
 		in.close();
 		return Info;
 	}

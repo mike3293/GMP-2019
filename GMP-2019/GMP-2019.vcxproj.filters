@@ -63,6 +63,9 @@
     <ClCompile Include="SemAnaliz.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="CodeGeneration.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Div.h">
@@ -114,6 +117,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="SemAnaliz.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeGeneration.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

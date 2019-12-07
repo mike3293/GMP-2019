@@ -11,12 +11,12 @@ int _tmain(int argc, _TCHAR ** argv)
 		Log::WriteLine(log, L"Тест", L" Без ошибок", L"");
 		Log::WriteLog(log);
 		Log::WriteParm(log, parm);
-		In::IN in = In::getin(parm.in, parm.out);
+		In::IN in = In::getin(parm.in);
 		Log::WriteIn(log, in);
 		Lex::LEX lex = Lex::lexAnaliz(log, in);
-		IT::showTable(lex.idtable);
 
-		//LT::showTable(lex.lextable, log);
+		Gen::CodeGeneration(lex, parm.out);
+		//IT::showTable(lex.idtable);
 		//bool rc = PolishNotation(17, lex);
 		/*bool rc = PolishNotation(64, lex);
 		if (rc)
@@ -34,10 +34,8 @@ int _tmain(int argc, _TCHAR ** argv)
 		//mfst.start();
 		// mfst.savededucation();
 		//mfst.printrules();
-
 		std::cout << Sem::checkSemantic(lex, log);
 		LT::showTable(lex.lextable, log);
-
 		//IT::showTable(lex.idtable);
 
 		system("pause");

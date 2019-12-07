@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GMP-2019", "GMP-2019\GMP-2019.vcxproj", "{BC28C9AB-7417-4450-9D43-1094D1AF8BEB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "asmCheck", "asmCheck\asmCheck.vcxproj", "{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{BC28C9AB-7417-4450-9D43-1094D1AF8BEB}.Release|x64.Build.0 = Release|x64
 		{BC28C9AB-7417-4450-9D43-1094D1AF8BEB}.Release|x86.ActiveCfg = Release|Win32
 		{BC28C9AB-7417-4450-9D43-1094D1AF8BEB}.Release|x86.Build.0 = Release|Win32
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Debug|x64.ActiveCfg = Debug|x64
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Debug|x64.Build.0 = Debug|x64
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Debug|x86.ActiveCfg = Debug|Win32
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Debug|x86.Build.0 = Debug|Win32
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Release|x64.ActiveCfg = Release|x64
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Release|x64.Build.0 = Release|x64
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Release|x86.ActiveCfg = Release|Win32
+		{3ED381ED-8262-4DAB-AAF2-54E71F6AF567}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

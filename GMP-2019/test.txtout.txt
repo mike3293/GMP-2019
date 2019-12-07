@@ -1,1 +1,1 @@
-ushort function min(ushort a, ushort b)|{| var ushort result;| if (b < a){|  result = b;| } else {|  result = a;| }| return result;|}||main|{| var line name1;| var line name2;| var ushort a;| var ushort b;| var ushort c;| var ushort result;| b = 0x0011;| c = 18;|  | name1 = "Mikhail";| name2 = name1;| | result = compare(name1, name2);| if(result)| {|  a = pow(2, 4);| }| else| {|  a = min(b, c);| }| | if(a >= b)| {|  print(b);| }| return 0;|}|
+ûûûû

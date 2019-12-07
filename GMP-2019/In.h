@@ -54,7 +54,7 @@ namespace In
 		unsigned char* text; //исходный текст
 		int code[256]; // таблица проверки: T,F,I новое значение
 	};
-	IN getin(wchar_t infile[], wchar_t outfile[]);//¬вести и проверить входной поток 
+	IN getin(wchar_t infile[]);//¬вести и проверить входной поток 
 }
 
 // " ,;(){}=+-*/|"
