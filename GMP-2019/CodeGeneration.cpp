@@ -63,7 +63,7 @@ namespace Gen
 			flag_if = false,					// внутри if?
 			flag_then = false,					// внутри then?
 			flag_else = false;					// внутри then/else?
-		out << "\n.code";
+		out << "\n.code\n";
 		for (int i = 0; i < lex.lextable.size; i++)
 		{
 			switch (lex.lextable.table[i].lexema)
@@ -71,7 +71,7 @@ namespace Gen
 			case LEX_FUNCTION:
 			{
 				func_name = (const char*)lex.idtable.table[lex.lextable.table[++i].idxTI].idRegion;
-				out << "\t" << func_name << " PROC ";
+				out << func_name << " PROC ";
 				i += 2;
 				for (;lex.lextable.table[i].lexema != LEX_RIGHTTHESIS; i++)
 				{
@@ -115,8 +115,32 @@ namespace Gen
 					{
 					case LEX_ID:
 					{
-						out << "\tpush " << lex.idtable.table[lex.lextable.table[i].idxTI].idRegion << endl;
-						stk.push((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].idRegion);
+						if (lex.idtable.table[lex.lextable.table[i].idxTI].idType == IT::F)
+						{
+							string tmpName = (const char*)lex.idtable.table[lex.lextable.table[i++].idxTI].idRegion;
+							for(; lex.lextable.table[i].lexema != LEX_RIGHTTHESIS; i++)
+								if(lex.lextable.table[i].lexema == LEX_ID)
+									stk.push(((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].idRegion));
+							while (!stk.empty())
+							{
+								out << "\tpush " << stk.top() << endl;
+								stk.pop();
+							}
+							out << "\tcall " << tmpName << "\n\tpush ax\n";;
+							break;
+						}
+						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::INT)
+						{
+							out << "\tpush " << lex.idtable.table[lex.lextable.table[i].idxTI].idRegion << endl;
+							//stk.push((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].idRegion);
+							break;
+						}
+						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::STR)
+						{
+							out << "\tpush offset " << lex.idtable.table[lex.lextable.table[i].idxTI].idRegion << endl;
+							//stk.push("offset " + (string)(const char*)lex.idtable.table[lex.lextable.table[i].idxTI].idRegion);
+							break;
+						}
 						break;
 					}
 					case LEX_LITERAL:
@@ -124,12 +148,12 @@ namespace Gen
 						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::INT)
 						{
 							out << "\tpush " << lex.idtable.table[lex.lextable.table[i].idxTI].id << endl;
-							stk.push((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].id);
+							//stk.push((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].id);
 						}
 						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::STR)
 						{
 							out << "\tpush offset " << lex.idtable.table[lex.lextable.table[i].idxTI].id << endl;
-							stk.push("offset " + (string)(const char*)lex.idtable.table[lex.lextable.table[i].idxTI].id);
+							//stk.push("offset " + (string)(const char*)lex.idtable.table[lex.lextable.table[i].idxTI].id);
 						}
 						break;
 					}
@@ -180,10 +204,10 @@ namespace Gen
 					{
 						out << "local" << num_of_ret++ << ":\n";
 						out << "\tpop ax\n\tret\n"; // string?
+						out << func_name << " ENDP\n\n";
+						flag_func = false;		// ok?
 						flag_ret = false;
 					}
-					out << func_name << " ENDP\n\n";
-					flag_func = false;
 				}
 				if (flag_then)
 				{

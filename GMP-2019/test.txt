@@ -1,4 +1,4 @@
-[ushort function min(ushort a, ushort b)
+ushort function min(ushort a, ushort b)
 {
 	var ushort result;
 	if (b < a){
@@ -23,14 +23,14 @@ main
 	name1 = "Mikhail";
 	name2 = name1;
 	
-	result = compare(name1, name2);
-	if(result > 0)
+	[result = compare(name1, name2);]
+	if(a < b)
 	{
-		a = pow(2, 4);
+		a = min(b, c);
 	}
 	else
 	{
-		a = min(b, c);
+		print("a less than b");
 	}
 	
 	if(a >= b)
@@ -39,7 +39,7 @@ main
 	}
 	return 0;
 }
-]main
+[main
 {
 	var ushort a;
 	var ushort b;
@@ -55,4 +55,4 @@ main
 
 	print("bye");
 	return 0;
-}
+}]
