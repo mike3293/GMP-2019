@@ -71,8 +71,13 @@ namespace Lex
 			if (FST::execute(fstLogical))
 			{
 				LT::Entry entryLT;
-				writeEntry(entryLT, LEX_LOGICAL, LT_TI_NULLIDX, line); //создание структуры
+				writeEntry(entryLT, LEX_LOGICAL, indexID++, line); //создание структуры
 				LT::Add(lextable, entryLT); //добавление структуры в таблицу
+				_mbscpy(entryIT.id, word[i]);
+
+				entryIT.idxfirstLE = indexLex;
+				entryIT.idType = IT::OP;
+				IT::Add(idtable, entryIT);
 				continue;
 			}
 
@@ -375,7 +380,7 @@ namespace Lex
 			if (FST::execute(fstRightBrace))
 			{
 				LT::Entry entryLT;
-				writeEntry(entryLT, LEX_BRACELET, LT_TI_NULLIDX, line);
+				writeEntry(entryLT, LEX_RIGHTBRACE, LT_TI_NULLIDX, line);
 				LT::Add(lextable, entryLT);
 				continue;
 			}

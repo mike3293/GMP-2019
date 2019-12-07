@@ -24,7 +24,7 @@ main
 	name2 = name1;
 	
 	result = compare(name1, name2);
-	if(result)
+	if(result > 0)
 	{
 		a = pow(2, 4);
 	}
@@ -41,11 +41,18 @@ main
 }
 ]main
 {
-	var line name1;
-	var line name2;
 	var ushort a;
-	name1 = "Mikalai";
-	print("Mikhail");
+	var ushort b;
+	var ushort c;
+	b = 1;
+	a = 2;
+	c = 3;
 
+	if(a > b)
+	{
+		print("a more than b");
+	}
+
+	print("bye");
 	return 0;
 }

@@ -2,7 +2,7 @@
 #include <iostream>
 
 extern "C" {
-	void printN(int a)
+	void printN(unsigned short a)
 	{
 		std::cout << a;
 	}
@@ -12,4 +12,15 @@ extern "C" {
 		std::cout << str;
 	}
 
+	unsigned short raiseTo(int num, int exponent)
+	{
+		unsigned short accum = 1;
+		for (int i = 0; i < exponent; i++)
+		{
+			accum *= num;
+		}
+		return accum;
+	}
+
+	// TODO compare()
 }

@@ -11,7 +11,7 @@ namespace Gen
 			throw ERROR_THROW(110);
 
 		out << ".586\n\t.model flat, stdcall\n\tincludelib libucrt.lib\n\tincludelib kernel32.lib";
-		out << "\n\tincludelib ../Debug/StaticLib.lib\n\n\tEXTERN printS :PROC\n\tEXTERN printN :PROC";
+		out << "\n\tincludelib ../Debug/StaticLib.lib\n\n\tEXTERN printS :PROC\n\tEXTERN printN :PROC\n\tEXTERN raise :PROC";
 		//out << "\tprint PROTO: DWORD\n\tcompare PROTO : DWORD, : DWORD\n\tpow PROTO : DWORD, : DWORD\n";
 		out << "\n\tExitProcess PROTO :DWORD\n";
 		out << "\n.stack 4096\n";
@@ -41,11 +41,11 @@ namespace Gen
 				out << "\t" << lex.idtable.table[lex.lextable.table[i + 2].idxTI].idRegion;
 				if (lex.idtable.table[lex.lextable.table[i + 2].idxTI].idDataType == IT::STR)
 				{
-					out << " DWORD ?\n";
+					out << " DWORD 0\n";
 				}
 				if (lex.idtable.table[lex.lextable.table[i + 2].idxTI].idDataType == IT::INT)
 				{
-					out << " DWORD ?\n";
+					out << " WORD 0\n";
 				}
 				i += 3;
 			}
@@ -63,14 +63,15 @@ namespace Gen
 			flag_if = false,					// внутри if?
 			flag_then = false,					// внутри then?
 			flag_else = false;					// внутри then/else?
-		out << "\n.code\n";
+		out << "\n.code";
 		for (int i = 0; i < lex.lextable.size; i++)
 		{
 			switch (lex.lextable.table[i].lexema)
 			{
 			case LEX_FUNCTION:
 			{
-				out << "\t" << /*(func_name =*/ lex.idtable.table[lex.lextable.table[++i].idxTI].id/*)*/ << " PROC ";
+				func_name = (const char*)lex.idtable.table[lex.lextable.table[++i].idxTI].idRegion;
+				out << "\t" << func_name << " PROC ";
 				i += 2;
 				for (;lex.lextable.table[i].lexema != LEX_RIGHTTHESIS; i++)
 				{
@@ -105,21 +106,184 @@ namespace Gen
 				out << "\n\tmain PROC\n";
 				break;
 			}
+			case LEX_EQUAL: //TODO
+			{
+				int result_position = i - 1;
+				while (lex.lextable.table[i].lexema != LEX_SEMICOLON)
+				{
+					switch (lex.lextable.table[i].lexema)
+					{
+					case LEX_ID:
+					{
+						out << "\tpush " << lex.idtable.table[lex.lextable.table[i].idxTI].idRegion << endl;
+						stk.push((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].idRegion);
+						break;
+					}
+					case LEX_LITERAL:
+					{
+						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::INT)
+						{
+							out << "\tpush " << lex.idtable.table[lex.lextable.table[i].idxTI].id << endl;
+							stk.push((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].id);
+						}
+						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::STR)
+						{
+							out << "\tpush offset " << lex.idtable.table[lex.lextable.table[i].idxTI].id << endl;
+							stk.push("offset " + (string)(const char*)lex.idtable.table[lex.lextable.table[i].idxTI].id);
+						}
+						break;
+					}
+					}
+					i++;
+				}
+				out << "\tpop " << lex.idtable.table[lex.lextable.table[result_position].idxTI].idRegion << "\n";
+				break;
+			}
+			case LEX_RETURN:
+			{
+				out << "\tpush ";
+				i++;
+				if (lex.idtable.table[lex.lextable.table[i].idxTI].idType == IT::L)
+				{
+					out << lex.idtable.table[lex.lextable.table[i++].idxTI].value.vint << endl;
+				}
+				else
+				{
+					out << lex.idtable.table[lex.lextable.table[i++].idxTI].idRegion << endl;
+				}
+				if (flag_func)
+				{
+					out << "\tjmp local" << num_of_ret << endl;
+					flag_ret = true;
+				}
+				if (flag_body)
+				{
+					out << "\tjmp theend\n";
+					flag_ret = true;
+				}
+				break;
+			}
+			case LEX_RIGHTBRACE:
+			{
+				if (flag_body && !flag_then && !flag_else && !flag_func)
+				{
+					if (flag_ret)
+					{
+						out << "theend:\n";
+						flag_ret = false;
+					}
+					out << "\tcall ExitProcess\nmain ENDP\nend main";
+				}
+				if (flag_func)
+				{
+					if (flag_ret)
+					{
+						out << "local" << num_of_ret++ << ":\n";
+						out << "\tpop ax\n\tret\n"; // string?
+						flag_ret = false;
+					}
+					out << func_name << " ENDP\n\n";
+					flag_func = false;
+				}
+				if (flag_then)
+				{
+					flag_then = false;
+					if (flag_else)
+					{
+						out << "\tjmp e" << num_of_ends << endl;
+						flag_else = false;
+					}
+					out << "m" << num_of_points++ << ":\n";
+				}
+				if (flag_else)
+				{
+					flag_else = false;
+					out << "e" << num_of_ends++ << ":\n";
+				}
+				break;
+			}
+			case LEX_IF:
+			{
+				flag_if = true;
+				break;
+			}
+			case LEX_LEFTTHESIS:
+			{
+				if (flag_if)
+				{
+					if (lex.lextable.table[i + 2].lexema == LEX_LOGICAL)
+					{
+						out << "\tmov ax, " << lex.idtable.table[lex.lextable.table[i + 1].idxTI].idRegion << endl;
+						out << "\tcmp ax, " << lex.idtable.table[lex.lextable.table[i + 3].idxTI].idRegion << endl;
+						if ((string)(const char*)lex.idtable.table[lex.lextable.table[i + 2].idxTI].id == SEM_GREAT)
+						{
+							out << "\tjg m" << num_of_points << endl;
+							out << "\tjl m" << num_of_points + 1 << endl;
+							out << "\tje m" << num_of_points + 1 << endl;
+						}
+						else if ((string)(const char*)lex.idtable.table[lex.lextable.table[i + 2].idxTI].id == SEM_LESS)
+						{
+							out << "\tjl m" << num_of_points << endl;
+							out << "\tjg m" << num_of_points + 1 << endl;
+							out << "\tje m" << num_of_points + 1 << endl;
+						}
+						else if ((string)(const char*)lex.idtable.table[lex.lextable.table[i + 2].idxTI].id == SEM_EQUAL)
+						{
+							out << "\tje m" << num_of_points << endl;
+							out << "\tjg m" << num_of_points + 1 << endl;
+							out << "\tjl m" << num_of_points + 1 << endl;
+						}
+						else if ((string)(const char*)lex.idtable.table[lex.lextable.table[i + 2].idxTI].id == SEM_GREATEQUAL)
+						{
+							out << "\tje m" << num_of_points << endl;
+							out << "\tjg m" << num_of_points << endl;
+							out << "\tjl m" << num_of_points + 1 << endl;
+						}
+						else if ((string)(const char*)lex.idtable.table[lex.lextable.table[i + 2].idxTI].id == SEM_LESSEQUAL)
+						{
+							out << "\tje m" << num_of_points << endl;
+							out << "\tjl m" << num_of_points << endl;
+							out << "\tjg m" << num_of_points + 1<< endl;
+						}
+						int j = i;
+						while (lex.lextable.table[j++].lexema != LEX_RIGHTBRACE)
+						{
+							while (lex.lextable.table[j].lexema == DIV)
+								j++;
+							if (lex.lextable.table[j + 2].lexema == LEX_ELSE)
+							{
+								flag_else = true;
+								break;
+							}
+						}
+					}
+					flag_then = true;
+					out << "m" << num_of_points++ << ":\n";
+					flag_if = false;
+					break;
+				}
+				break;
+			}
+			case LEX_ELSE:
+			{
+				flag_else = true;
+				break;
+			}
 			case LEX_PRINT:
 			{
 				if (lex.idtable.table[lex.lextable.table[i + 2].idxTI].idDataType == IT::INT)
 				{
-					out << "\t\tpush " << lex.idtable.table[lex.lextable.table[i + 2].idxTI].id << "\n\t\tcall printN\n";
+					out << "\tpush " << lex.idtable.table[lex.lextable.table[i + 2].idxTI].idRegion << "\n\tcall printN\n";
 				}
 				else
 				{
-					out << "\t\tpush offset " << lex.idtable.table[lex.lextable.table[i + 2].idxTI].id << "\n\t\tcall printS\n";
+					out << "\tpush offset " << lex.idtable.table[lex.lextable.table[i + 2].idxTI].id << "\n\tcall printS\n";		// Only for literals
 				}
 				break;
 			}
 			}
 		}
-		out << "\n\t\tpush 0\n\t\tcall ExitProcess\n\tmain ENDP\nend main";
+		//out << "\n\tpush 0\n\tcall ExitProcess\n\tmain ENDP\nend main";
 
 		out.close();
 	}

@@ -19,7 +19,7 @@
 #define LEX_SEMICOLON	';'	// лексема для ;
 #define LEX_COMMA		','	// лексема для ,
 #define LEX_LEFTBRACE	'{'	// лексема для {
-#define LEX_BRACELET	'}'	// лексема для }
+#define LEX_RIGHTBRACE	'}'	// лексема для }
 #define LEX_LEFTTHESIS	'('	// лексема для (
 #define LEX_RIGHTTHESIS	')'	// лексема для )
 #define LEX_PLUS		'v'	// лексема для +
