@@ -298,7 +298,7 @@ namespace Lex
 				_mbscpy(bufL, L);	// помещаем в буфер "L"
 				word[i] = _mbscat(bufL, (unsigned char*)charCountLit);	// формируем имя для литерала
 				_mbscpy(entryIT.id, word[i]);
-				_mbscpy(entryIT.idRegion, emptystr);
+				_mbscpy(entryIT.idRegion, word[i]);
 				IT::Add(idtable, entryIT);
 				continue;
 			}

@@ -6,7 +6,8 @@
 
 	EXTERN printS :PROC
 	EXTERN printN :PROC
-	EXTERN raise :PROC
+	EXTERN raiseto :PROC
+	EXTERN compare :PROC
 	ExitProcess PROTO :DWORD
 
 .stack 4096
@@ -14,9 +15,11 @@
 .const
 	L1 WORD 17
 	L2 WORD 18
-	L3 BYTE 'Mikhail', 0
-	L4 BYTE 'a less than b', 0
-	L5 WORD 0
+	L3 BYTE "Mikhail", 0
+	L4 WORD 1
+	L5 BYTE 'strings are not equal', 0
+	L6 WORD 2
+	L7 WORD 0
 
 .data
 	minresult WORD 0
@@ -50,7 +53,7 @@ local0:
 min ENDP
 
 
-	main PROC
+main PROC
 	push L1
 	pop mainb
 	push L2
@@ -59,20 +62,27 @@ min ENDP
 	pop mainname1
 	push offset mainname1
 	pop mainname2
-	mov ax, maina
-	cmp ax, mainb
-	jl m2
+	push offset mainname2
+	push offset mainname1
+	call compare
+	push eax
+	pop mainresult
+	mov ax, mainresult
+	cmp ax, L4
+	je m2
 	jg m3
-	je m3
+	jl m3
 m2:
-	push mainc
-	push mainb
+	movzx eax, mainc
+	push eax
+	movzx eax, mainb
+	push eax
 	call min
-	push ax
+	push eax
 	pop maina
 	jmp e1
 m3:
-	push offset L4
+	push offset L5
 	call printS
 e1:
 	mov ax, maina
@@ -81,6 +91,13 @@ e1:
 	jg m4
 	jl m5
 m4:
+	movzx eax, L6
+	push eax
+	movzx eax, mainc
+	push eax
+	call raiseto
+	push eax
+	pop mainb
 	push mainb
 	call printN
 m5:

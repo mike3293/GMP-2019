@@ -11,7 +11,7 @@ namespace Gen
 			throw ERROR_THROW(110);
 
 		out << ".586\n\t.model flat, stdcall\n\tincludelib libucrt.lib\n\tincludelib kernel32.lib";
-		out << "\n\tincludelib ../Debug/StaticLib.lib\n\n\tEXTERN printS :PROC\n\tEXTERN printN :PROC\n\tEXTERN raise :PROC";
+		out << "\n\tincludelib ../Debug/StaticLib.lib\n\n\tEXTERN printS :PROC\n\tEXTERN printN :PROC\n\tEXTERN raiseto :PROC\n\tEXTERN compare :PROC";
 		//out << "\tprint PROTO: DWORD\n\tcompare PROTO : DWORD, : DWORD\n\tpow PROTO : DWORD, : DWORD\n";
 		out << "\n\tExitProcess PROTO :DWORD\n";
 		out << "\n.stack 4096\n";
@@ -51,7 +51,7 @@ namespace Gen
 			}
 		}
 
-		stack<string> stk;
+		stack<IT::Entry> stk;
 		int num_of_points = 0,
 			num_of_ret = 0,
 			num_of_ends = 0;
@@ -62,7 +62,8 @@ namespace Gen
 			flag_body = false,					// внутри главной функции?
 			flag_if = false,					// внутри if?
 			flag_then = false,					// внутри then?
-			flag_else = false;					// внутри then/else?
+			flag_else = false,					// внутри then/else?
+			flagLibFunc = false;
 		out << "\n.code\n";
 		for (int i = 0; i < lex.lextable.size; i++)
 		{
@@ -103,7 +104,7 @@ namespace Gen
 			case LEX_MAIN:
 			{
 				flag_body = true;
-				out << "\n\tmain PROC\n";
+				out << "\nmain PROC\n";
 				break;
 			}
 			case LEX_EQUAL: //TODO
@@ -113,20 +114,54 @@ namespace Gen
 				{
 					switch (lex.lextable.table[i].lexema)
 					{
-					case LEX_ID:
+					case LEX_COMPARE:
+					case LEX_POW:
+					case LEX_ID:	
 					{
-						if (lex.idtable.table[lex.lextable.table[i].idxTI].idType == IT::F)
+						IT::IDTYPE type = lex.idtable.table[lex.lextable.table[i].idxTI].idType;
+						if (type == IT::F || type == IT::LIB)
 						{
-							string tmpName = (const char*)lex.idtable.table[lex.lextable.table[i++].idxTI].idRegion;
+							string tmpName;
+							unsigned char lexema = lex.lextable.table[i].lexema;
+
+							switch (lexema)
+							{
+							case LEX_COMPARE:
+							{
+								tmpName = "compare";
+								i++;
+								break;
+							}
+							case LEX_POW:
+							{
+								tmpName = "raiseto";
+								i++;
+								break;
+							}
+
+							case LEX_ID:
+							{
+								tmpName = (const char*)lex.idtable.table[lex.lextable.table[i++].idxTI].idRegion;
+								break;
+							}
+							}
 							for(; lex.lextable.table[i].lexema != LEX_RIGHTTHESIS; i++)
-								if(lex.lextable.table[i].lexema == LEX_ID)
-									stk.push(((const char*)lex.idtable.table[lex.lextable.table[i].idxTI].idRegion));
+								if(lex.lextable.table[i].lexema == LEX_ID || lex.lextable.table[i].lexema == LEX_LITERAL)
+									stk.push(lex.idtable.table[lex.lextable.table[i].idxTI]);
 							while (!stk.empty())
 							{
-								out << "\tpush " << stk.top() << endl;
+								if (stk.top().idDataType == IT::INT)
+								{
+									out << "\tmovzx eax, " << stk.top().idRegion << endl;
+									out << "\tpush eax" << endl;
+								}
+								if (stk.top().idDataType == IT::STR)
+								{
+									out << "\tpush offset " << stk.top().idRegion << endl;
+								}
 								stk.pop();
 							}
-							out << "\tcall " << tmpName << "\n\tpush ax\n";;
+							out << "\tcall " << tmpName << "\n\tpush eax\n";
 							break;
 						}
 						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::INT)

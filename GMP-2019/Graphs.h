@@ -85,10 +85,14 @@
 	FST::NODE(1, FST::RELATION('e', 7)),\
 	FST::NODE()
 
-#define FST_LIB_POW 4,	\
-	FST::NODE(1, FST::RELATION('p', 1)),\
-	FST::NODE(1, FST::RELATION('o', 2)),\
-	FST::NODE(1, FST::RELATION('w', 3)),\
+#define FST_LIB_POW 8,	\
+	FST::NODE(1, FST::RELATION('r', 1)),\
+	FST::NODE(1, FST::RELATION('a', 2)),\
+	FST::NODE(1, FST::RELATION('i', 3)),\
+	FST::NODE(1, FST::RELATION('s', 4)),\
+	FST::NODE(1, FST::RELATION('e', 5)),\
+	FST::NODE(1, FST::RELATION('t', 6)),\
+	FST::NODE(1, FST::RELATION('o', 7)),\
 	FST::NODE()
 
 #define FST_ID 3,	\

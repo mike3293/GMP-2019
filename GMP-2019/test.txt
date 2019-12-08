@@ -23,36 +23,20 @@ main
 	name1 = "Mikhail";
 	name2 = name1;
 	
-	[result = compare(name1, name2);]
-	if(a < b)
+	result = compare(name1, name2);
+	if(result == 1)
 	{
 		a = min(b, c);
 	}
 	else
 	{
-		print("a less than b");
+		print("strings are not equal");
 	}
 	
 	if(a >= b)
 	{
+		b = raiseto(c, 2);
 		print(b);
 	}
 	return 0;
 }
-[main
-{
-	var ushort a;
-	var ushort b;
-	var ushort c;
-	b = 1;
-	a = 2;
-	c = 3;
-
-	if(a > b)
-	{
-		print("a more than b");
-	}
-
-	print("bye");
-	return 0;
-}]
