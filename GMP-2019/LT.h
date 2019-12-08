@@ -34,15 +34,15 @@ namespace LT		// таблица лексем
 	struct Entry	// строка таблицы лексем
 	{
 		unsigned char lexema;	// лексема
-		int sn;							// номер строки в исходном тексте
+		int numberOfString;				// номер строки в исходном тексте
 		int idxTI;						// индекс в таблице идентификаторов или LT_TI_NULLIDX
 		int priority;					// приоритет
 	};
 
 	struct LexTable						// экземпл€р таблицы лексем
 	{
-		int maxsize;					// емкость таблицы лексем < LT_MAXSIZE
-		int size;						// текущий размер таблицы лексем < maxsize
+		int maxSize;					// емкость таблицы лексем < LT_MAXSIZE
+		int size;						// текущий размер таблицы лексем < maxSize
 		Entry* table;					// массив строк таблицы лексем
 	};
 
@@ -51,16 +51,16 @@ namespace LT		// таблица лексем
 	);
 
 	void Add(				// добавить строку в таблицу лексем
-		LexTable& lextable,	// экземпл€р таблицы лексем
+		LexTable& lexTable,	// экземпл€р таблицы лексем
 		Entry entry			// строка таблицы лексем
 	);
 
 	Entry GetEntry(			// получить строку таблицы лексем
-		LexTable& lextable,	// экземпл€р таблицы лексем
+		LexTable& lexTable,	// экземпл€р таблицы лексем
 		int n				// номер получаемой строки
 	);
 
-	void Delete(LexTable& lextable);	// удалить таблицу лексем (освободить пам€ть)
+	void Delete(LexTable& lexTable);	// удалить таблицу лексем (освободить пам€ть)
 
 	Entry writeEntry(					// заполнить строку таблицы лексем
 		Entry &entry,
@@ -69,5 +69,5 @@ namespace LT		// таблица лексем
 		int line
 	);
 
-	void showTable(LexTable lextable, Log::LOG &log);	// вывод таблицы лексем
+	void showTable(LexTable lexTable, Log::LOG &log);	// вывод таблицы лексем
 };

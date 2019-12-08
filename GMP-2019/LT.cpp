@@ -6,57 +6,57 @@ namespace LT
 	{
 		if (size > LT_MAXSIZE) throw ERROR_THROW(7);
 		LexTable Table;
-		Table.maxsize = size;
+		Table.maxSize = size;
 		Table.size = 0;
 		Table.table = new Entry[size];
 		return Table;
 	}
 
-	void Add(LexTable& lextable, Entry entry)
+	void Add(LexTable& lexTable, Entry entry)
 	{
-		if (lextable.size > lextable.maxsize) throw ERROR_THROW(8);
-		lextable.table[lextable.size++] = entry;
+		if (lexTable.size > lexTable.maxSize) throw ERROR_THROW(8);
+		lexTable.table[lexTable.size++] = entry;
 	}
 
-	Entry GetEntry(LexTable& lextable, int n)
+	Entry GetEntry(LexTable& lexTable, int n)
 	{
-		return lextable.table[n];
+		return lexTable.table[n];
 	}
 
-	void Delete(LexTable& lextable)
+	void Delete(LexTable& lexTable)
 	{
-		lextable.maxsize = NULL;
-		lextable.size = NULL;
-		delete[] lextable.table;
+		lexTable.maxSize = NULL;
+		lexTable.size = NULL;
+		delete[] lexTable.table;
 	}
 
 	Entry writeEntry(Entry &entry, unsigned char lexema, int indx, int line)
 	{
 		entry.lexema = lexema;
 		entry.idxTI = indx;
-		entry.sn = line;
+		entry.numberOfString = line;
 		return entry;
 	}
 
-	void showTable(LexTable lextable, Log::LOG &log)		// вывод таблицы лексем
+	void showTable(LexTable lexTable, Log::LOG &log)		// вывод таблицы лексем
 	{
 		int number = 1;
 		*log.stream << "01 ";
-		for (int i = 0; i < lextable.size; i++)
+		for (int i = 0; i < lexTable.size; i++)
 		{
-			if (lextable.table[i].sn != number && lextable.table[i].sn != -1)
+			if (lexTable.table[i].numberOfString != number && lexTable.table[i].numberOfString != -1)
 			{
-				while (lextable.table[i].sn - number > 1)	// пока строки не станут равны
+				while (lexTable.table[i].numberOfString - number > 1)	// пока строки не станут равны
 					number++;
 				if (number < 9)
-					*log.stream << std::endl << '0' << lextable.table[i].sn << ' ';
+					*log.stream << std::endl << '0' << lexTable.table[i].numberOfString << ' ';
 				else
-					*log.stream << std::endl << lextable.table[i].sn << ' ';
+					*log.stream << std::endl << lexTable.table[i].numberOfString << ' ';
 				number++;
 			}
-			*log.stream << lextable.table[i].lexema;
-			if (lextable.table[i].lexema == LEX_ID || lextable.table[i].lexema == LEX_OPERATOR || lextable.table[i].lexema == LEX_LITERAL)
-				*log.stream << "<" << lextable.table[i].idxTI << ">";
+			*log.stream << lexTable.table[i].lexema;
+			if (lexTable.table[i].lexema == LEX_ID || lexTable.table[i].lexema == LEX_OPERATOR || lexTable.table[i].lexema == LEX_LITERAL)
+				*log.stream << "<" << lexTable.table[i].idxTI << ">";
 		}
 	}
 }

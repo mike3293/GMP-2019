@@ -19,9 +19,9 @@ int _tmain(int argc, _TCHAR ** argv)
 		in.text = test;
 		Lex::LEX lex = Lex::lexAnaliz(log, in);*/
 
-		LT::LexTable lextable = LT::Create(LT_MAXSIZE+1); //создание таблицы макс размера
+		LT::LexTable lexTable = LT::Create(LT_MAXSIZE+1); //создание таблицы макс размера
 
-		//IT::IdTable idtable = IT::Create(TI_MAXSIZE+1);//создание таблицы макс размера
+		//IT::IdTable idTable = IT::Create(TI_MAXSIZE+1);//создание таблицы макс размера
 
 
 		Log::Close(log);

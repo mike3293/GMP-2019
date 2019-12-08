@@ -8,41 +8,41 @@ bool PolishNotation(int i, Lex::LEX& lex)
 	
 	queue<LT::Entry> queue;	
 
-	int lineNum = lex.lextable.table[i].sn;
+	int lineNum = lex.lexTable.table[i].numberOfString;
 	LT::Entry temp;			// лексема для подстановки
 	temp.idxTI = INT_MIN;
 	temp.lexema = '#';
-	temp.sn = lineNum;
+	temp.numberOfString = lineNum;
 
 	LT::Entry funcParm;			// лексема для вызова функции
 	funcParm.idxTI = INT_MIN;
 	funcParm.lexema = '@';
-	funcParm.sn = lineNum;
+	funcParm.numberOfString = lineNum;
 	int countLex = 0;															// количество преобразованных лексем
 	int countParm = 0;															// количество параметров функции
 	int posLex = i;																// запоминаем номер лексемы перед преобразованием
 	bool findFunc = false;														// флаг для функции
 	bool findComma = false;														// флаг для запятой (кол-во параметров +2 сразу)
 	char* buf = new char[2];													// буфер для countParm в строковом представлении
-	for (i; lex.lextable.table[i].lexema != LEX_SEMICOLON; i++, countLex++)
+	for (i; lex.lexTable.table[i].lexema != LEX_SEMICOLON; i++, countLex++)
 	{
-		switch (lex.lextable.table[i].lexema)
+		switch (lex.lexTable.table[i].lexema)
 		{
 		case LEX_ID:			
 		{
-			if (lex.idtable.table[lex.lextable.table[i].idxTI].idType == IT::F)
+			if (lex.idTable.table[lex.lexTable.table[i].idxTI].idType == IT::F)
 				findFunc = true;
-			queue.push(lex.lextable.table[i]);
+			queue.push(lex.lexTable.table[i]);
 			continue;
 		}
 		case LEX_LITERAL:				
 		{
-			queue.push(lex.lextable.table[i]);										
+			queue.push(lex.lexTable.table[i]);										
 			continue;
 		}
 		case LEX_LEFTTHESIS:	
 		{
-			stack.push(lex.lextable.table[i]);										// помещаем в стек
+			stack.push(lex.lexTable.table[i]);										// помещаем в стек
 			continue;
 		}
 		case LEX_RIGHTTHESIS:				
@@ -53,12 +53,12 @@ bool PolishNotation(int i, Lex::LEX& lex)
 				{
 					countParm++;
 				}
-				lex.lextable.table[i] = funcParm;
-				queue.push(lex.lextable.table[i]);									// добавляем в очередь лексему вызова функции
+				lex.lexTable.table[i] = funcParm;
+				queue.push(lex.lexTable.table[i]);									// добавляем в очередь лексему вызова функции
 				_itoa_s(countParm, buf, 2, 10);										// преобразование числа countParm в строку
 				stack.top().lexema = buf[0];
 				stack.top().idxTI = INT_MIN;
-				stack.top().sn = lineNum;						// заполняем лексему, указывающую количество параметров функции
+				stack.top().numberOfString = lineNum;						// заполняем лексему, указывающую количество параметров функции
 				queue.push(stack.top());											// добавляем в очередь эту лексему
 				findFunc = false;
 			}
@@ -77,13 +77,13 @@ bool PolishNotation(int i, Lex::LEX& lex)
 		}
 		case LEX_OPERATOR:															// если знак оператора
 		{
-			while (!stack.empty() && lex.lextable.table[i].priority <= stack.top().priority)	// пока приоритет текущего оператора 
+			while (!stack.empty() && lex.lexTable.table[i].priority <= stack.top().priority)	// пока приоритет текущего оператора 
 																					//меньше или равен приоритету оператора в вершине стека
 			{
 				queue.push(stack.top());											// выталкиваем со стека в выходную строку
 				stack.pop();
 			}
-			stack.push(lex.lextable.table[i]);
+			stack.push(lex.lexTable.table[i]);
 			continue;
 		}
 		case LEX_COMMA:																// если запятая
@@ -104,19 +104,19 @@ bool PolishNotation(int i, Lex::LEX& lex)
 	while (countLex != 0)															// замена текущего выражения в таблице лексем на польскую запись
 	{
 		if (!queue.empty()) {
-			lex.lextable.table[posLex++] = queue.front();	
+			lex.lexTable.table[posLex++] = queue.front();	
 			queue.pop();
 		}
 		else
 		{
-			lex.lextable.table[posLex++] = temp;
+			lex.lexTable.table[posLex++] = temp;
 		}
 		countLex--;
 	}
 	for (int i = 0; i < posLex; i++)												// восстановление индексов первого вхождения в таблицу лексем у операторов из таблицы идентификаторов
 	{
-		if (lex.lextable.table[i].lexema == LEX_OPERATOR || lex.lextable.table[i].lexema == LEX_LITERAL)
-			lex.idtable.table[lex.lextable.table[i].idxTI].idxfirstLE = i;
+		if (lex.lexTable.table[i].lexema == LEX_OPERATOR || lex.lexTable.table[i].lexema == LEX_LITERAL)
+			lex.idTable.table[lex.lexTable.table[i].idxTI].idxfirstLE = i;
 	}
 	return true;
 }

@@ -5,25 +5,25 @@ namespace Sem
 {
 	bool Sem::checkSemantic(Lex::LEX& tables, Log::LOG& log)
 	{
-		for (int i = 0; i < tables.lextable.size; i++)
+		for (int i = 0; i < tables.lexTable.size; i++)
 		{
-			switch (tables.lextable.table[i].lexema)
+			switch (tables.lexTable.table[i].lexema)
 			{
 				case LEX_PRINT: // проверка print
 				{
 					i++;
-					if(tables.lextable.table[i++].lexema == LEX_LEFTTHESIS)
-						if (tables.lextable.table[i].lexema == LEX_ID || tables.lextable.table[i].lexema == LEX_LITERAL)
+					if(tables.lexTable.table[i++].lexema == LEX_LEFTTHESIS)
+						if (tables.lexTable.table[i].lexema == LEX_ID || tables.lexTable.table[i].lexema == LEX_LITERAL)
 							break;
-					throw ERROR_THROW_IN(509, tables.lextable.table[i].sn, 0);
+					throw ERROR_THROW_IN(509, tables.lexTable.table[i].numberOfString, 0);
 				}
 				case LEX_LOGICAL: // проверка логический операторов
 				{
-					IT::IDDATATYPE dataTypeLeftOp = tables.idtable.table[tables.lextable.table[i - 1].idxTI].idDataType;
-					IT::IDDATATYPE dataTypeRightOp = tables.idtable.table[tables.lextable.table[i + 1].idxTI].idDataType;
+					IT::IDDATATYPE dataTypeLeftOp = tables.idTable.table[tables.lexTable.table[i - 1].idxTI].idDataType;
+					IT::IDDATATYPE dataTypeRightOp = tables.idTable.table[tables.lexTable.table[i + 1].idxTI].idDataType;
 
-					if(dataTypeLeftOp != IT::INT || dataTypeRightOp != IT::INT)
-						throw ERROR_THROW_IN(508, tables.lextable.table[i].sn, 0);
+					if(dataTypeLeftOp != IT::USHORT || dataTypeRightOp != IT::USHORT)
+						throw ERROR_THROW_IN(508, tables.lexTable.table[i].numberOfString, 0);
 
 					break;
 				}
@@ -31,58 +31,58 @@ namespace Sem
 				{
 					int paramsCount = 0;
 
-					for (int j = i + 2; tables.lextable.table[j].lexema != LEX_RIGHTTHESIS; j++)
+					for (int j = i + 2; tables.lexTable.table[j].lexema != LEX_RIGHTTHESIS; j++)
 					{
-						if (tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL)
+						if (tables.lexTable.table[j].lexema == LEX_ID || tables.lexTable.table[j].lexema == LEX_LITERAL)
 						{
 							paramsCount++;
-							IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].idDataType;
-							if (ctype != IT::INT)
-								throw ERROR_THROW_IN(506, tables.lextable.table[i].sn, 0);
+							IT::IDDATATYPE ctype = tables.idTable.table[tables.lexTable.table[j].idxTI].idDataType;
+							if (ctype != IT::USHORT)
+								throw ERROR_THROW_IN(506, tables.lexTable.table[i].numberOfString, 0);
 						}
 					}
 					if (paramsCount != 2)
-						throw ERROR_THROW_IN(506, tables.lextable.table[i].sn, 0);
+						throw ERROR_THROW_IN(506, tables.lexTable.table[i].numberOfString, 0);
 					break;
 				}
 				case LEX_COMPARE: // проверка compare
 				{
 					int paramsCount = 0;
 
-					for (int j = i + 2; tables.lextable.table[j].lexema != LEX_RIGHTTHESIS; j++)
+					for (int j = i + 2; tables.lexTable.table[j].lexema != LEX_RIGHTTHESIS; j++)
 					{
-						if (tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL)
+						if (tables.lexTable.table[j].lexema == LEX_ID || tables.lexTable.table[j].lexema == LEX_LITERAL)
 						{
 							paramsCount++;
-							IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].idDataType;
+							IT::IDDATATYPE ctype = tables.idTable.table[tables.lexTable.table[j].idxTI].idDataType;
 							if (ctype != IT::STR)
-								throw ERROR_THROW_IN(507, tables.lextable.table[i].sn, 0);
+								throw ERROR_THROW_IN(507, tables.lexTable.table[i].numberOfString, 0);
 						}
 					}
 					if (paramsCount != 2)
-						throw ERROR_THROW_IN(507, tables.lextable.table[i].sn, 0);
+						throw ERROR_THROW_IN(507, tables.lexTable.table[i].numberOfString, 0);
 					break;
 				}
 				case LEX_ID: // проверка типа возвращаемого значени€  
 				{
-					IT::Entry tmp = tables.idtable.table[tables.lextable.table[i].idxTI];
+					IT::Entry tmp = tables.idTable.table[tables.lexTable.table[i].idxTI];
 
-					if (i > 0 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION)
+					if (i > 0 && tables.lexTable.table[i - 1].lexema == LEX_FUNCTION)
 					{
 						if (tmp.idType == IT::F) //функци€, не процедура
 						{
-							for (int k = i + 1; k != tables.lextable.size; k++)
+							for (int k = i + 1; k != tables.lexTable.size; k++)
 							{
-								char l = tables.lextable.table[k].lexema;
+								char l = tables.lexTable.table[k].lexema;
 								if (l == LEX_RETURN)
 								{
-									int lexAfterReturn = tables.lextable.table[k + 1].idxTI; // след. за return
+									int lexAfterReturn = tables.lexTable.table[k + 1].idxTI; // след. за return
 									if (lexAfterReturn != TI_NULLIDX)
 									{
 										// тип функции и возвращаемого значени€ не совпадают
-										if (tables.idtable.table[lexAfterReturn].idDataType != tmp.idDataType)
+										if (tables.idTable.table[lexAfterReturn].idDataType != tmp.idDataType)
 										{
-											throw ERROR_THROW_IN(502, tables.lextable.table[k].sn, 0);
+											throw ERROR_THROW_IN(502, tables.lexTable.table[k].numberOfString, 0);
 										}
 									}
 									break;
@@ -90,7 +90,7 @@ namespace Sem
 							}
 						}
 					}
-					if (tables.lextable.table[i + 1].lexema == LEX_LEFTTHESIS && tables.lextable.table[i - 1].lexema != LEX_FUNCTION) // вызов
+					if (tables.lexTable.table[i + 1].lexema == LEX_LEFTTHESIS && tables.lexTable.table[i - 1].lexema != LEX_FUNCTION) // вызов
 					{
 						if (tmp.idType == IT::F)
 						{
@@ -99,43 +99,42 @@ namespace Sem
 
 							int protoParamsCount = 0;
 							
-							for (int iterator = tmp.idxfirstLE + 1; tables.lextable.table[iterator].lexema != LEX_RIGHTTHESIS; iterator++)
+							for (int iterator = tmp.idxfirstLE + 1; tables.lexTable.table[iterator].lexema != LEX_RIGHTTHESIS; iterator++)
 							{
-								if (tables.lextable.table[iterator].lexema == LEX_ID) {
-									/*if(tables.idtable.table[tables.lextable.table[iterator].idxTI].idtype == IT::P)*/
+								if (tables.lexTable.table[iterator].lexema == LEX_ID) {
 									protoParamsCount++;
-									queue.push(tables.lextable.table[iterator]);
+									queue.push(tables.lexTable.table[iterator]);
 								}
 							}
 							if (protoParamsCount > PARAMS_MAX)
-								throw ERROR_THROW_IN(503, tables.lextable.table[i].sn, 0);
+								throw ERROR_THROW_IN(503, tables.lexTable.table[i].numberOfString, 0);
 							
 							// проверка передаваемых параметров
-							for (int j = i + 1; tables.lextable.table[j].lexema != LEX_RIGHTTHESIS; j++)
+							for (int j = i + 1; tables.lexTable.table[j].lexema != LEX_RIGHTTHESIS; j++)
 							{
 								// проверка соответстви€ передаваемых параметров прототипам
-								if (tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL)
+								if (tables.lexTable.table[j].lexema == LEX_ID || tables.lexTable.table[j].lexema == LEX_LITERAL)
 								{
-									IT::IDDATATYPE ctype = tables.idtable.table[tables.lextable.table[j].idxTI].idDataType;
+									IT::IDDATATYPE ctype = tables.idTable.table[tables.lexTable.table[j].idxTI].idDataType;
 									if (!queue.empty())
 									{
-										if (ctype != tables.idtable.table[queue.front().idxTI].idDataType)
+										if (ctype != tables.idTable.table[queue.front().idxTI].idDataType)
 										{
 											// Ќесовпадение типов передаваемых параметров
-											throw ERROR_THROW_IN(504, tables.lextable.table[i].sn, 0);
+											throw ERROR_THROW_IN(504, tables.lexTable.table[i].numberOfString, 0);
 										}
 										queue.pop();
 									}
 									else
 									{
 										//  оличество передаваемых и принимаемых параметров не совпадает
-										throw ERROR_THROW_IN(505, tables.lextable.table[i].sn, 0);
+										throw ERROR_THROW_IN(505, tables.lexTable.table[i].numberOfString, 0);
 									}
 								}
 							}
 							if (!queue.empty())
 							{
-								throw ERROR_THROW_IN(505, tables.lextable.table[i].sn, 0);
+								throw ERROR_THROW_IN(505, tables.lexTable.table[i].numberOfString, 0);
 							}
 						}
 					}

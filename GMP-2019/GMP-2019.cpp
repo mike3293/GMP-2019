@@ -16,27 +16,27 @@ int _tmain(int argc, _TCHAR ** argv)
 		Lex::LEX lex = Lex::lexAnaliz(log, in);
 
 		Gen::CodeGeneration(lex, parm.out);
-		//IT::showTable(lex.idtable);
+		//IT::showTable(lex.idTable);
 		//bool rc = PolishNotation(17, lex);
 		/*bool rc = PolishNotation(64, lex);
 		if (rc)
 			std::cout << "Польская запись построена" << std::endl;
 		else
 			std::cout << "Польская запись не построена" << std::endl;
-		LT::showTable(lex.lextable, log);*/
+		LT::showTable(lex.lexTable, log);*/
 
-		/*LT::showTable(lex.lextable, log);
-		IT::showTable(lex.idtable);
-		LT::Delete(lex.lextable);
-		IT::Delete(lex.idtable);*/
+		/*LT::showTable(lex.lexTable, log);
+		IT::showTable(lex.idTable);
+		LT::Delete(lex.lexTable);
+		IT::Delete(lex.idTable);*/
 
-		//MFST::Mfst mfst(lex, GRB::getGreibach());
-		//mfst.start();
+		MFST::Mfst mfst(lex, GRB::getGreibach());
+		mfst.start();
 		// mfst.savededucation();
-		//mfst.printrules();
+		mfst.printrules();
 		std::cout << Sem::checkSemantic(lex, log);
-		LT::showTable(lex.lextable, log);
-		//IT::showTable(lex.idtable);
+		LT::showTable(lex.lexTable, log);
+		//IT::showTable(lex.idTable);
 
 		//system("pause");
 		Log::Close(log);

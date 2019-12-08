@@ -8,7 +8,7 @@
 
 namespace IT			// таблица идентификаторов
 {
-	enum IDDATATYPE { INT = 1, STR = 2 };			// типы данных идентификаторов: integer, string
+	enum IDDATATYPE { USHORT = 1, STR = 2 };			// типы данных идентификаторов: integer, string
 	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, OP = 5, LIB = 6 };	// типы идентификаторов: переменная, функция, параметр, литерал, оператор
 
 	struct Entry	// строка таблицы идентификаторов
@@ -20,7 +20,7 @@ namespace IT			// таблица идентификаторов
 		IDTYPE		idType;							// тип идентификатора
 		union
 		{
-			unsigned short vint;								// значение integer
+			unsigned short vushort;								// значение integer
 			struct
 			{
 				unsigned char len;						// количество символов в string
@@ -31,8 +31,8 @@ namespace IT			// таблица идентификаторов
 
 	struct IdTable				// экземпляр таблицы идентификаторов
 	{
-		int maxsize;			// емкость таблицы идентификаторов < TI_MAXSIZE
-		int size;				// текущий размер таблицы идентификаторов < maxsize
+		int maxSize;			// емкость таблицы идентификаторов < TI_MAXSIZE
+		int size;				// текущий размер таблицы идентификаторов < maxSize
 		Entry* table;			// массив строк таблицы идентификаторов
 	};
 
@@ -41,20 +41,20 @@ namespace IT			// таблица идентификаторов
 	);
 
 	void Add(				// добавить строку в таблицу идентификаторов
-		IdTable& idtable,	// экземпляр таблицы идентификаторов
+		IdTable& idTable,	// экземпляр таблицы идентификаторов
 		Entry entry			// строка таблицы идентификаторов
 	);
 
 	Entry GetEntry(			// получить строку таблицы идентификаторов
-		IdTable& idtable,	// экземпляр таблицы идентификаторов
+		IdTable& idTable,	// экземпляр таблицы идентификаторов
 		int n				// номер получаемой строки
 	);
 
 	int IsIDRegion(				// возврат: номер строки (если есть), TI_NULLIDX (если нет)
-		IdTable& idtable,	// экземпляр таблицы идентификаторов
+		IdTable& idTable,	// экземпляр таблицы идентификаторов
 		unsigned char id[ID_MAXSIZE]	// идентификатор
 	);
 
-	void Delete(IdTable& idtable);	// удалить таблицу лексем (освободить память)
-	void showTable(IdTable& idtable);
+	void Delete(IdTable& idTable);	// удалить таблицу лексем (освободить память)
+	void showTable(IdTable& idTable);
 };
