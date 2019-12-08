@@ -15,7 +15,6 @@ int _tmain(int argc, _TCHAR ** argv)
 		Log::WriteIn(log, in);
 		Lex::LEX lex = Lex::lexAnaliz(log, in);
 
-		Gen::CodeGeneration(lex, parm.out);
 		//IT::showTable(lex.idTable);
 		//bool rc = PolishNotation(17, lex);
 		/*bool rc = PolishNotation(64, lex);
@@ -30,11 +29,15 @@ int _tmain(int argc, _TCHAR ** argv)
 		LT::Delete(lex.lexTable);
 		IT::Delete(lex.idTable);*/
 
-		MFST::Mfst mfst(lex, GRB::getGreibach());
-		mfst.start();
+		MFST::Mfst mfst(lex, GRB::getGreibach(), false);
+		if (!mfst.start())
+			throw ERROR_THROW(600);
+		std::cout << "SYN is ok" << std::endl;
 		// mfst.savededucation();
 		//mfst.printrules();
-		std::cout << Sem::checkSemantic(lex, log);
+		if(Sem::checkSemantic(lex, log))
+			std::cout << "SEM is ok" << std::endl;
+		Gen::CodeGeneration(lex, parm.out);
 		LT::showTable(lex.lexTable, log);
 		IT::showTable(lex.idTable);
 

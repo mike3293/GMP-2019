@@ -9,7 +9,7 @@ ushort function min(ushort a, ushort b)
 	return result;
 }
 
-line function ismore(ushort a, ushort b)
+line function ismore(a, ushort b)
 {
 	var line result;
 	if (a > b) {

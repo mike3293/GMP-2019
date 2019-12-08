@@ -98,7 +98,8 @@ namespace MFST
 		Mfst();
 		Mfst(
 			Lex::LEX plex,				// результат работы лексического анализатора
-			GRB::Greibach pgrebach		// грамматика Грейбах
+			GRB::Greibach pgrebach,		// грамматика Грейбах
+			bool traceIsOnSwitch		// флаг для отключения трассировки
 		);
 		char* getCSt(char* buf);		// получить содержимое стека
 		char* getCLenta(char* buf, short pos, short n = 25);	// лента: n символов с pos
@@ -109,6 +110,7 @@ namespace MFST
 			GRB::Rule::Chain chain		// цепочка правила
 		);
 		RC_STEP step();					// выполнить шаг автомата
+		bool traceIsOn;
 		bool start();					// запустить автомат
 		bool savediagnosis(
 			RC_STEP pprc_step			// код завершения шага

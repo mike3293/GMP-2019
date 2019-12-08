@@ -29,7 +29,7 @@ namespace LT		// таблица лексем
 	struct Entry	// строка таблицы лексем
 	{
 		unsigned char lexema;	// лексема
-		int numberOfString;				// номер строки в исходном тексте
+		int numOfString;				// номер строки в исходном тексте
 		int idxTI;						// индекс в таблице идентификаторов или LT_TI_NULLIDX
 		int priority;					// приоритет
 	};

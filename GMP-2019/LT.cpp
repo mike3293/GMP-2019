@@ -34,7 +34,7 @@ namespace LT
 	{
 		entry.lexema = lexema;
 		entry.idxTI = indx;
-		entry.numberOfString = line;
+		entry.numOfString = line;
 		return entry;
 	}
 
@@ -44,14 +44,14 @@ namespace LT
 		*log.stream << "01 ";
 		for (int i = 0; i < lexTable.size; i++)
 		{
-			if (lexTable.table[i].numberOfString != number && lexTable.table[i].numberOfString != -1)
+			if (lexTable.table[i].numOfString != number && lexTable.table[i].numOfString != -1)
 			{
-				while (lexTable.table[i].numberOfString - number > 1)	// пока строки не станут равны
+				while (lexTable.table[i].numOfString - number > 1)	// пока строки не станут равны
 					number++;
 				if (number < 9)
-					*log.stream << std::endl << '0' << lexTable.table[i].numberOfString << ' ';
+					*log.stream << std::endl << '0' << lexTable.table[i].numOfString << ' ';
 				else
-					*log.stream << std::endl << lexTable.table[i].numberOfString << ' ';
+					*log.stream << std::endl << lexTable.table[i].numOfString << ' ';
 				number++;
 			}
 			*log.stream << lexTable.table[i].lexema;
