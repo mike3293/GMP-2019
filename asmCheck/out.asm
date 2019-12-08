@@ -13,16 +13,20 @@
 .stack 4096
 
 .const
-	L1 WORD 17
-	L2 WORD 18
-	L3 BYTE "Mikhail", 0
-	L4 WORD 1
-	L5 BYTE 'strings are not equal', 0
-	L6 WORD 2
-	L7 WORD 0
+	L1 BYTE 'First argument more than second', 0
+	L2 BYTE 'Second argument more than first', 0
+	L3 WORD 17
+	L4 WORD 18
+	L5 BYTE 'Mikhail', 0
+	L6 WORD 1
+	L7 BYTE 'strings are not equal', 0
+	L8 WORD 2
+	L9 WORD 300
+	L10 WORD 0
 
 .data
 	minresult WORD 0
+	ismoreresult DWORD 0
 	mainname1 DWORD 0
 	mainname2 DWORD 0
 	maina WORD 0
@@ -48,31 +52,52 @@ e0:
 	push minresult
 	jmp local0
 local0:
-	pop ax
+	pop eax
 	ret
 min ENDP
 
+ismore PROC ismorea : WORD, ismoreb : WORD
+	mov ax, ismorea
+	cmp ax, ismoreb
+	jg m2
+	jl m3
+	je m3
+m2:
+	push offset L1
+	pop ismoreresult
+	jmp e1
+m3:
+	push offset L2
+	pop ismoreresult
+e1:
+	push ismoreresult
+	jmp local1
+local1:
+	pop eax
+	ret
+ismore ENDP
+
 
 main PROC
-	push L1
+	push L3
 	pop mainb
-	push L2
+	push L4
 	pop mainc
-	push offset L3
+	push offset L5
 	pop mainname1
-	push offset mainname1
+	push mainname1
 	pop mainname2
-	push offset mainname2
-	push offset mainname1
+	push mainname2
+	push mainname1
 	call compare
 	push eax
 	pop mainresult
 	mov ax, mainresult
-	cmp ax, L4
-	je m2
-	jg m3
-	jl m3
-m2:
+	cmp ax, L6
+	je m4
+	jg m5
+	jl m5
+m4:
 	movzx eax, mainc
 	push eax
 	movzx eax, mainb
@@ -80,18 +105,18 @@ m2:
 	call min
 	push eax
 	pop maina
-	jmp e1
-m3:
-	push offset L5
+	jmp e2
+m5:
+	push offset L7
 	call printS
-e1:
+e2:
 	mov ax, maina
 	cmp ax, mainb
-	je m4
-	jg m4
-	jl m5
-m4:
-	movzx eax, L6
+	je m6
+	jg m6
+	jl m7
+m6:
+	movzx eax, L8
 	push eax
 	movzx eax, mainc
 	push eax
@@ -100,7 +125,16 @@ m4:
 	pop mainb
 	push mainb
 	call printN
-m5:
+m7:
+	movzx eax, L9
+	push eax
+	movzx eax, mainb
+	push eax
+	call ismore
+	push eax
+	pop mainname1
+	push mainname1
+	call printS
 	push 0
 	jmp theend
 theend:

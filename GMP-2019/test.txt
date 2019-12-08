@@ -9,6 +9,17 @@ ushort function min(ushort a, ushort b)
 	return result;
 }
 
+line function ismore(ushort a, ushort b)
+{
+	var line result;
+	if (a > b){
+		result = "First argument more than second";
+	} else {
+		result = "Second argument more than first";
+	}
+	return result;
+}
+
 main
 {
 	var line name1;
@@ -38,5 +49,8 @@ main
 		b = raiseto(c, 2);
 		print(b);
 	}
+	
+	name1 = ismore(b, 300);
+	print(name1);
 	return 0;
 }

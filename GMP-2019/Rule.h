@@ -82,13 +82,12 @@ namespace GRB
 		),
 		Rule(
 			NS('C'),
-			GRB_ERROR_SERIES + 6,    // оператор
-			5,								  //
+			GRB_ERROR_SERIES + 6,    // условие для if
+			4,								  
 			Rule::Chain(3, TS('i'), TS('o'), TS('i')),
 			Rule::Chain(3, TS('i'), TS('o'), TS('l')),
 			Rule::Chain(3, TS('l'), TS('o'), TS('i')),
-			Rule::Chain(3, TS('l'), TS('o'), TS('l')),
-			Rule::Chain(1, TS('i'))
+			Rule::Chain(3, TS('l'), TS('o'), TS('l'))
 		)
 
 	);

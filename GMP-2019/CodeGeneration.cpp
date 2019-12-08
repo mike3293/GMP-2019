@@ -157,7 +157,10 @@ namespace Gen
 								}
 								if (stk.top().idDataType == IT::STR)
 								{
-									out << "\tpush offset " << stk.top().idRegion << endl;
+									if(stk.top().idType == IT::L)
+										out << "\tpush offset " << stk.top().idRegion << endl;
+									else
+										out << "\tpush " << stk.top().idRegion << endl;
 								}
 								stk.pop();
 							}
@@ -172,7 +175,7 @@ namespace Gen
 						}
 						if (lex.idtable.table[lex.lextable.table[i].idxTI].idDataType == IT::STR)
 						{
-							out << "\tpush offset " << lex.idtable.table[lex.lextable.table[i].idxTI].idRegion << endl;
+							out << "\tpush " << lex.idtable.table[lex.lextable.table[i].idxTI].idRegion << endl;
 							//stk.push("offset " + (string)(const char*)lex.idtable.table[lex.lextable.table[i].idxTI].idRegion);
 							break;
 						}
@@ -238,7 +241,7 @@ namespace Gen
 					if (flag_ret)
 					{
 						out << "local" << num_of_ret++ << ":\n";
-						out << "\tpop ax\n\tret\n"; // string?
+						out << "\tpop eax\n\tret\n"; // string?
 						out << func_name << " ENDP\n\n";
 						flag_func = false;		// ok?
 						flag_ret = false;
@@ -336,7 +339,10 @@ namespace Gen
 				}
 				else
 				{
-					out << "\tpush offset " << lex.idtable.table[lex.lextable.table[i + 2].idxTI].id << "\n\tcall printS\n";		// Only for literals
+					if(lex.idtable.table[lex.lextable.table[i + 2].idxTI].idType == IT::L)
+						out << "\tpush offset " << lex.idtable.table[lex.lextable.table[i + 2].idxTI].id << "\n\tcall printS\n";
+					else
+						out << "\tpush " << lex.idtable.table[lex.lextable.table[i + 2].idxTI].idRegion << "\n\tcall printS\n";
 				}
 				break;
 			}
