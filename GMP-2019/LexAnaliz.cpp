@@ -156,8 +156,8 @@ namespace Lex
 				FST::FST fstLibPow(word[i], FST_LIB_POW); //проверка
 				FST::FST fstLibCompare(word[i], FST_LIB_COMPARE); //проверка
 
-				if(_mbslen(word[i]) > ID_MAXSIZE - 1)
-					throw ERROR_THROW_IN(116, line, 0);
+				if(_mbslen(word[i]) > ID_MAXSIZE)
+					throw ERROR_THROW_IN(202, line, 0);
 				_mbscpy(startWord, word[i]);
 
 				// поиск такого же
@@ -167,7 +167,7 @@ namespace Lex
 					if (idx != TI_NULLIDX)						// если такой идентификатор уже есть
 					{
 						if (lexTable.table[indexLex-1].lexema == LEX_FUNCTION)
-							throw ERROR_THROW_IN(114, line, 0);
+							throw ERROR_THROW_IN(200, line, 0);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);
 						LT::Add(lexTable, entryLT);
@@ -181,7 +181,7 @@ namespace Lex
 					if (idx != TI_NULLIDX)					
 					{
 						if (lexTable.table[indexLex - 2].lexema == LEX_VAR)
-							throw ERROR_THROW_IN(114, line, 0);
+							throw ERROR_THROW_IN(200, line, 0);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);
 						LT::Add(lexTable, entryLT);
@@ -193,7 +193,7 @@ namespace Lex
 					if (idx != TI_NULLIDX)		// если такой идентификатор уже есть
 					{
 						if (lexTable.table[indexLex - 2].lexema == LEX_VAR)
-							throw ERROR_THROW_IN(114, line, 0);
+							throw ERROR_THROW_IN(200, line, 0);
 						LT::Entry entryLT;
 						writeEntry(entryLT, LEX_ID, idx, line);
 						LT::Add(lexTable, entryLT);
@@ -326,7 +326,7 @@ namespace Lex
 				_mbscpy(bufL, L);	// помещаем в буфер "L"
 				nameLiteral = _mbscat(bufL, (unsigned char*)charCountLit);	// формируем имя для литерала (L + charCountLit)
 				_mbscpy(entryIT.id, nameLiteral);
-				_mbscpy(entryIT.idRegion, emptystr);
+				_mbscpy(entryIT.idRegion, nameLiteral);
 				IT::Add(idTable, entryIT);
 				continue;
 			}
@@ -421,7 +421,7 @@ namespace Lex
 				indexLex--;
 				continue;
 			}
-			throw ERROR_THROW_IN(115, line, 0);
+			throw ERROR_THROW_IN(201, line, 0);
 		}
 		if (enterCount == 0)
 		{

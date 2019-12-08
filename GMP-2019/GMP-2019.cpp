@@ -30,13 +30,13 @@ int _tmain(int argc, _TCHAR ** argv)
 		LT::Delete(lex.lexTable);
 		IT::Delete(lex.idTable);*/
 
-		MFST::Mfst mfst(lex, GRB::getGreibach());
-		mfst.start();
+		//MFST::Mfst mfst(lex, GRB::getGreibach());
+		//mfst.start();
 		// mfst.savededucation();
-		mfst.printrules();
+		//mfst.printrules();
 		std::cout << Sem::checkSemantic(lex, log);
 		LT::showTable(lex.lexTable, log);
-		//IT::showTable(lex.idTable);
+		IT::showTable(lex.idTable);
 
 		//system("pause");
 		Log::Close(log);

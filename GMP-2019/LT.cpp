@@ -4,7 +4,7 @@ namespace LT
 {
 	LexTable Create(int size)
 	{
-		if (size > LT_MAXSIZE) throw ERROR_THROW(7);
+		if (size > LT_MAXSIZE) throw ERROR_THROW(206);
 		LexTable Table;
 		Table.maxSize = size;
 		Table.size = 0;
@@ -14,7 +14,7 @@ namespace LT
 
 	void Add(LexTable& lexTable, Entry entry)
 	{
-		if (lexTable.size > lexTable.maxSize) throw ERROR_THROW(8);
+		if (lexTable.size > lexTable.maxSize) throw ERROR_THROW(207);
 		lexTable.table[lexTable.size++] = entry;
 	}
 
@@ -55,7 +55,7 @@ namespace LT
 				number++;
 			}
 			*log.stream << lexTable.table[i].lexema;
-			if (lexTable.table[i].lexema == LEX_ID || lexTable.table[i].lexema == LEX_OPERATOR || lexTable.table[i].lexema == LEX_LITERAL)
+			if (lexTable.table[i].lexema == LEX_ID || lexTable.table[i].lexema == LEX_OPERATOR || lexTable.table[i].lexema == LEX_LITERAL || lexTable.table[i].lexema == LEX_LOGICAL)
 				*log.stream << "<" << lexTable.table[i].idxTI << ">";
 		}
 	}

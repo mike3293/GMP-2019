@@ -1,7 +1,7 @@
 ushort function min(ushort a, ushort b)
 {
 	var ushort result;
-	if (b < a){
+	if (b < a) {
 		result = b;
 	} else {
 		result = a;
@@ -12,7 +12,7 @@ ushort function min(ushort a, ushort b)
 line function ismore(ushort a, ushort b)
 {
 	var line result;
-	if (a > b){
+	if (a > b) {
 		result = "First argument more than second";
 	} else {
 		result = "Second argument more than first";
@@ -22,8 +22,9 @@ line function ismore(ushort a, ushort b)
 
 main
 {
-	var line name1;
-	var line name2;
+	[var line s234;]
+	var line str1;
+	var line str2;
 	var ushort a;
 	var ushort b;
 	var ushort c;
@@ -31,26 +32,22 @@ main
 	b = 0x0011;
 	c = 18;
 		
-	name1 = "Mikhail";
-	name2 = name1;
+	str1 = "Mikhail";
+	str2 = str1;
 	
-	result = compare(name1, name2);
-	if(result == 1)
-	{
+	result = compare(str1, str2);
+	if(result == 1) {
 		a = min(b, c);
-	}
-	else
-	{
+	} else {
 		print("strings are not equal");
 	}
 	
-	if(a >= b)
-	{
+	if(a >= b) {
 		b = raiseto(c, 2);
 		print(b);
 	}
 	
-	name1 = ismore(b, 300);
-	print(name1);
+	str1 = ismore(b, 300);
+	print(str1);
 	return 0;
 }

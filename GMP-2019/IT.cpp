@@ -5,7 +5,7 @@ namespace IT
 	IdTable Create(int size)
 	{
 		if (size > TI_MAXSIZE) 
-			throw ERROR_THROW(5);
+			throw ERROR_THROW(204);
 		IdTable Table;
 		Table.maxSize = size;
 		Table.size = 0;
@@ -15,7 +15,7 @@ namespace IT
 
 	void Add(IdTable& idTable, Entry entry)
 	{
-		if (idTable.size > idTable.maxSize) throw ERROR_THROW(6);
+		if (idTable.size > idTable.maxSize) throw ERROR_THROW(205);
 		idTable.table[idTable.size++] = entry;
 	}
 

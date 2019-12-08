@@ -27,8 +27,8 @@
 .data
 	minresult WORD 0
 	ismoreresult DWORD 0
-	mainname1 DWORD 0
-	mainname2 DWORD 0
+	mainstr1 DWORD 0
+	mainstr2 DWORD 0
 	maina WORD 0
 	mainb WORD 0
 	mainc WORD 0
@@ -84,11 +84,11 @@ main PROC
 	push L4
 	pop mainc
 	push offset L5
-	pop mainname1
-	push mainname1
-	pop mainname2
-	push mainname2
-	push mainname1
+	pop mainstr1
+	push mainstr1
+	pop mainstr2
+	push mainstr2
+	push mainstr1
 	call compare
 	push eax
 	pop mainresult
@@ -132,8 +132,8 @@ m7:
 	push eax
 	call ismore
 	push eax
-	pop mainname1
-	push mainname1
+	pop mainstr1
+	push mainstr1
 	call printS
 	push 0
 	jmp theend
