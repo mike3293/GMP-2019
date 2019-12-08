@@ -55,7 +55,7 @@ namespace LT
 				number++;
 			}
 			*log.stream << lexTable.table[i].lexema;
-			if (lexTable.table[i].lexema == LEX_ID || lexTable.table[i].lexema == LEX_OPERATOR || lexTable.table[i].lexema == LEX_LITERAL || lexTable.table[i].lexema == LEX_LOGICAL)
+			if (lexTable.table[i].lexema == LEX_ID || lexTable.table[i].lexema == LEX_LITERAL || lexTable.table[i].lexema == LEX_LOGICAL)
 				*log.stream << "<" << lexTable.table[i].idxTI << ">";
 		}
 	}

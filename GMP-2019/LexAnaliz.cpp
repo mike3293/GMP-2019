@@ -330,28 +330,6 @@ namespace Lex
 				IT::Add(idTable, entryIT);
 				continue;
 			}
-
-			FST::FST fstOperator(word[i], FST_OPERATOR);
-			if (FST::execute(fstOperator))
-			{
-				LT::Entry entryLT;
-				writeEntry(entryLT, LEX_OPERATOR, indexID++, line);
-				switch (word[i][0])
-				{
-				case PLUS: case MINUS:
-					entryLT.priority = 2;
-					break;
-				case SLASH: case STAR:
-					entryLT.priority = 3;
-					break;
-				}
-				LT::Add(lexTable, entryLT);
-				_mbscpy(entryIT.id, word[i]);
-				entryIT.idxfirstLE = indexLex;
-				entryIT.idType = IT::OP;
-				IT::Add(idTable, entryIT);
-				continue;
-			}
 			FST::FST fstSemicolon(word[i], FST_SEMICOLON);
 			if (FST::execute(fstSemicolon))
 			{

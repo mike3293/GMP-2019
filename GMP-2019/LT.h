@@ -22,11 +22,6 @@
 #define LEX_RIGHTBRACE	'}'	// лексема для }
 #define LEX_LEFTTHESIS	'('	// лексема для (
 #define LEX_RIGHTTHESIS	')'	// лексема для )
-#define LEX_PLUS		'v'	// лексема для +
-#define LEX_MINUS		'v'	// лексема для -
-#define LEX_STAR		'v'	// лексема для *
-#define LEX_DIRSLASH	'v'	// лексема для /
-#define LEX_OPERATOR	'v'	// лексема для операторов
 #define LEX_EQUAL		'='
 
 namespace LT		// таблица лексем

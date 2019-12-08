@@ -33,7 +33,6 @@
 #include "Div.h"
 #include "Graphs.h"
 #include "LexAnaliz.h"
-#include "PolishNotation.h"
 #include "Greibach.h"
 #include "MFST.h"
 #include "SemAnaliz.h"
