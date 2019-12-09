@@ -14,7 +14,8 @@ int _tmain(int argc, _TCHAR ** argv)
 		In::IN in = In::getin(parm.in);
 		Log::WriteIn(log, in);
 		Lex::LEX lex = Lex::lexAnaliz(log, in);
-
+		std::cout << "Лексический анализ завершён без ошибок\n\n";
+		*log.stream << "\nЛексический анализ завершён без ошибок\n\n";
 		//IT::showTable(lex.idTable);
 		//bool rc = PolishNotation(17, lex);
 		/*bool rc = PolishNotation(64, lex);
@@ -32,22 +33,26 @@ int _tmain(int argc, _TCHAR ** argv)
 		MFST::Mfst mfst(lex, GRB::getGreibach(), false);
 		if (!mfst.start())
 			throw ERROR_THROW(600);
-		std::cout << "SYN is ok" << std::endl;
+		std::cout << "Синтаксический анализ завершён без ошибок\n\n";
+		*log.stream << "Синтаксический анализ завершён без ошибок\n\n";
 		// mfst.savededucation();
 		//mfst.printrules();
-		if(Sem::checkSemantic(lex, log))
-			std::cout << "SEM is ok" << std::endl;
+		if (Sem::checkSemantic(lex, log))
+		{
+			std::cout << "Семантический анализ завершён без ошибок\n\n";
+			*log.stream << "Семантический анализ завершён без ошибок\n\n";
+		}
 		Gen::CodeGeneration(lex, parm.out);
 		LT::showTable(lex.lexTable, log);
-		IT::showTable(lex.idTable);
+		IT::showTable(lex.idTable, log);
 
 		//system("pause");
 		Log::Close(log);
 	}
-	catch (Error::ERROR e)
+	catch (Error::ERROR error)
 	{
-		Log::WriteError(log, e);
-		std::cout << e.message << std::endl;
+		Log::WriteError(log, error);
+		std::cout << "Ошибка " << error.id << ": " << error.message << ", строка " << error.inext.line << ", позиция " << error.inext.col << std::endl;
 		system("pause");
 	}
 	return 0;

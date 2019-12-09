@@ -55,6 +55,6 @@ namespace IT			// таблица идентификаторов
 		unsigned char id[ID_MAXSIZE]	// идентификатор
 	);
 
-	void Delete(IdTable& idTable);	// удалить таблицу лексем (освободить память)
-	void showTable(IdTable& idTable);
+	void Delete(IdTable& idTable);	// удалить таблицу идентификаторов (освободить память)
+	void showTable(IdTable& idTable, Log::LOG &log);
 };
