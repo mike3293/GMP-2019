@@ -207,14 +207,8 @@ namespace Gen
 				{
 					out << lex.idTable.table[lex.lexTable.table[i++].idxTI].idRegion << endl;
 				}
-				if (flagFunc)
+				if (flagFunc || flagMain)
 				{
-					out << "\tjmp local" << numberOfRet << endl;
-					flagRet = true;
-				}
-				if (flagMain)
-				{
-					out << "\tjmp theend\n";
 					flagRet = true;
 				}
 				break;
@@ -225,7 +219,6 @@ namespace Gen
 				{
 					if (flagRet)
 					{
-						out << "theend:\n";
 						flagRet = false;
 					}
 					out << "\tcall ExitProcess\nmain ENDP\nend main";
@@ -234,7 +227,6 @@ namespace Gen
 				{
 					if (flagRet)
 					{
-						out << "local" << numberOfRet++ << ":\n";
 						out << "\tpop eax\n\tret\n";
 						out << funcName << " ENDP\n\n";
 						flagFunc = false;		// ok?
@@ -246,15 +238,15 @@ namespace Gen
 					flagThen = false;
 					if (flagElse)
 					{
-						out << "\tjmp e" << numberOfEnds << endl;
+						out << "\tjmp ife" << numberOfEnds << endl;
 						flagElse = false;
 					}
-					out << "m" << numberOfPoints++ << ":\n";
+					out << "p" << numberOfPoints++ << ":\n";
 				}
 				if (flagElse)
 				{
 					flagElse = false;
-					out << "e" << numberOfEnds++ << ":\n";
+					out << "ife" << numberOfEnds++ << ":\n";
 				}
 				break;
 			}
@@ -273,33 +265,33 @@ namespace Gen
 						out << "\tcmp ax, " << lex.idTable.table[lex.lexTable.table[i + 3].idxTI].idRegion << endl;
 						if ((string)(const char*)lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id == SEM_GREAT)
 						{
-							out << "\tjg m" << numberOfPoints << endl;
-							out << "\tjl m" << numberOfPoints + 1 << endl;
-							out << "\tje m" << numberOfPoints + 1 << endl;
+							out << "\tjg p" << numberOfPoints << endl;
+							out << "\tjl p" << numberOfPoints + 1 << endl;
+							out << "\tje p" << numberOfPoints + 1 << endl;
 						}
 						else if ((string)(const char*)lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id == SEM_LESS)
 						{
-							out << "\tjl m" << numberOfPoints << endl;
-							out << "\tjg m" << numberOfPoints + 1 << endl;
-							out << "\tje m" << numberOfPoints + 1 << endl;
+							out << "\tjl p" << numberOfPoints << endl;
+							out << "\tjg p" << numberOfPoints + 1 << endl;
+							out << "\tje p" << numberOfPoints + 1 << endl;
 						}
 						else if ((string)(const char*)lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id == SEM_EQUAL)
 						{
-							out << "\tje m" << numberOfPoints << endl;
-							out << "\tjg m" << numberOfPoints + 1 << endl;
-							out << "\tjl m" << numberOfPoints + 1 << endl;
+							out << "\tje p" << numberOfPoints << endl;
+							out << "\tjg p" << numberOfPoints + 1 << endl;
+							out << "\tjl p" << numberOfPoints + 1 << endl;
 						}
 						else if ((string)(const char*)lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id == SEM_GREATEQUAL)
 						{
-							out << "\tje m" << numberOfPoints << endl;
-							out << "\tjg m" << numberOfPoints << endl;
-							out << "\tjl m" << numberOfPoints + 1 << endl;
+							out << "\tje p" << numberOfPoints << endl;
+							out << "\tjg p" << numberOfPoints << endl;
+							out << "\tjl p" << numberOfPoints + 1 << endl;
 						}
 						else if ((string)(const char*)lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id == SEM_LESSEQUAL)
 						{
-							out << "\tje m" << numberOfPoints << endl;
-							out << "\tjl m" << numberOfPoints << endl;
-							out << "\tjg m" << numberOfPoints + 1<< endl;
+							out << "\tje p" << numberOfPoints << endl;
+							out << "\tjl p" << numberOfPoints << endl;
+							out << "\tjg p" << numberOfPoints + 1<< endl;
 						}
 						int j = i;
 						while (lex.lexTable.table[j++].lexema != LEX_RIGHTBRACE)
@@ -314,7 +306,7 @@ namespace Gen
 						}
 					}
 					flagThen = true;
-					out << "m" << numberOfPoints++ << ":\n";
+					out << "p" << numberOfPoints++ << ":\n";
 					flagIf = false;
 					break;
 				}

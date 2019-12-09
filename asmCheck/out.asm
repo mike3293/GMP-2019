@@ -38,20 +38,18 @@
 min PROC mina : WORD, minb : WORD
 	mov ax, minb
 	cmp ax, mina
-	jl m0
-	jg m1
-	je m1
-m0:
+	jl p0
+	jg p1
+	je p1
+p0:
 	push minb
 	pop minresult
-	jmp e0
-m1:
+	jmp ife0
+p1:
 	push mina
 	pop minresult
-e0:
+ife0:
 	push minresult
-	jmp local0
-local0:
 	pop eax
 	ret
 min ENDP
@@ -59,20 +57,18 @@ min ENDP
 ismore PROC ismorea : WORD, ismoreb : WORD
 	mov ax, ismorea
 	cmp ax, ismoreb
-	jg m2
-	jl m3
-	je m3
-m2:
+	jg p2
+	jl p3
+	je p3
+p2:
 	push offset L1
 	pop ismoreresult
-	jmp e1
-m3:
+	jmp ife1
+p3:
 	push offset L2
 	pop ismoreresult
-e1:
+ife1:
 	push ismoreresult
-	jmp local1
-local1:
 	pop eax
 	ret
 ismore ENDP
@@ -94,10 +90,10 @@ main PROC
 	pop mainresult
 	mov ax, mainresult
 	cmp ax, L6
-	je m4
-	jg m5
-	jl m5
-m4:
+	je p4
+	jg p5
+	jl p5
+p4:
 	movzx eax, mainc
 	push eax
 	movzx eax, mainb
@@ -105,17 +101,17 @@ m4:
 	call min
 	push eax
 	pop maina
-	jmp e2
-m5:
+	jmp ife2
+p5:
 	push offset L7
 	call printS
-e2:
+ife2:
 	mov ax, maina
 	cmp ax, mainb
-	je m6
-	jg m6
-	jl m7
-m6:
+	je p6
+	jg p6
+	jl p7
+p6:
 	movzx eax, L8
 	push eax
 	movzx eax, mainc
@@ -125,7 +121,7 @@ m6:
 	pop mainb
 	push mainb
 	call printN
-m7:
+p7:
 	movzx eax, L9
 	push eax
 	movzx eax, mainb
@@ -136,8 +132,6 @@ m7:
 	push mainstr1
 	call printS
 	push 0
-	jmp theend
-theend:
 	call ExitProcess
 main ENDP
 end main
