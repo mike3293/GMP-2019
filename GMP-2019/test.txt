@@ -25,6 +25,7 @@ main
 	[var line s234;]
 	var line str1;
 	var line str2;
+	var line str2;
 	var ushort a;
 	var ushort b;
 	var ushort c;

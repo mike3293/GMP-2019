@@ -7,8 +7,8 @@ namespace Error
 	*/
 	ERROR errors[ERROR_MAX_ENTRY] =  //таблица ошибок
 	{
-		ERROR_ENTRY(0,"Недопустимый код ошибки"), //код ошибки вне диапазона 0 - ERROR_MAX_ENTRY
-		ERROR_ENTRY(1,"Системный сбой"),
+		ERROR_ENTRY(0,"SYS: Недопустимый код ошибки"), //код ошибки вне диапазона 0 - ERROR_MAX_ENTRY
+		ERROR_ENTRY(1,"SYS: Системный сбой"),
 		ERROR_ENTRY_NODEF(2),ERROR_ENTRY_NODEF(3),ERROR_ENTRY_NODEF(4),
 		ERROR_ENTRY_NODEF5(5),ERROR_ENTRY_NODEF50(10), ERROR_ENTRY_NODEF10(60),ERROR_ENTRY_NODEF10(70),
 		ERROR_ENTRY_NODEF10(80),ERROR_ENTRY_NODEF10(90),
