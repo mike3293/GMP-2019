@@ -33,13 +33,13 @@ int _tmain(int argc, _TCHAR ** argv)
 		MFST::Mfst mfst(lex, GRB::getGreibach(), false);
 		if (!mfst.start())
 			throw ERROR_THROW(600);
-		std::cout << "Синтаксический анализ завершён без ошибок\n\n";
+		std::cout << "Синтаксический анализ завершён без ошибок\n";
 		*log.stream << "Синтаксический анализ завершён без ошибок\n\n";
 		// mfst.savededucation();
-		//mfst.printrules();
+		mfst.printrules();
 		if (Sem::checkSemantic(lex, log))
 		{
-			std::cout << "Семантический анализ завершён без ошибок\n\n";
+			std::cout << "\nСемантический анализ завершён без ошибок\n\n";
 			*log.stream << "Семантический анализ завершён без ошибок\n\n";
 		}
 		Gen::CodeGeneration(lex, parm.out);
