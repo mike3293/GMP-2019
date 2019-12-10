@@ -4,10 +4,10 @@
 	includelib kernel32.lib
 	includelib ../Debug/StaticLib.lib
 
-	EXTERN printS :PROC
-	EXTERN printN :PROC
-	EXTERN raiseto :PROC
-	EXTERN compare :PROC
+	EXTERN _printS :PROC
+	EXTERN _printN :PROC
+	EXTERN _pow :PROC
+	EXTERN _compare :PROC
 	ExitProcess PROTO :DWORD
 
 .stack 4096
@@ -85,7 +85,7 @@ main PROC
 	pop mainstr2
 	push mainstr2
 	push mainstr1
-	call compare
+	call _compare
 	push eax
 	pop mainresult
 	mov ax, mainresult
@@ -104,7 +104,7 @@ p4:
 	jmp ife2
 p5:
 	push offset L7
-	call printS
+	call _printS
 ife2:
 	mov ax, maina
 	cmp ax, mainb
@@ -116,11 +116,11 @@ p6:
 	push eax
 	movzx eax, mainc
 	push eax
-	call raiseto
+	call _pow
 	push eax
 	pop mainb
 	push mainb
-	call printN
+	call _printN
 p7:
 	movzx eax, L9
 	push eax
@@ -130,7 +130,7 @@ p7:
 	push eax
 	pop mainstr1
 	push mainstr1
-	call printS
+	call _printS
 	push 0
 	call ExitProcess
 main ENDP

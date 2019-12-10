@@ -11,7 +11,7 @@ namespace Gen
 			throw ERROR_THROW(113);
 
 		out << ".586\n\t.model flat, stdcall\n\tincludelib libucrt.lib\n\tincludelib kernel32.lib";
-		out << "\n\tincludelib ../Debug/StaticLib.lib\n\n\tEXTERN printS :PROC\n\tEXTERN printN :PROC\n\tEXTERN raiseto :PROC\n\tEXTERN compare :PROC";
+		out << "\n\tincludelib ../Debug/StaticLib.lib\n\n\tEXTERN _printS :PROC\n\tEXTERN _printN :PROC\n\tEXTERN _pow :PROC\n\tEXTERN _compare :PROC";
 		out << "\n\tExitProcess PROTO :DWORD\n";
 		out << "\n.stack 4096\n";
 
@@ -126,13 +126,13 @@ namespace Gen
 							{
 							case LEX_COMPARE:
 							{
-								tmpName = "compare";
+								tmpName = "_compare";
 								i++;
 								break;
 							}
 							case LEX_POW:
 							{
-								tmpName = "raiseto";
+								tmpName = "_pow";
 								i++;
 								break;
 							}
@@ -293,6 +293,7 @@ namespace Gen
 							out << "\tjl p" << numberOfPoints << endl;
 							out << "\tjg p" << numberOfPoints + 1<< endl;
 						}
+						// ÍÅÐÀÂÍÎ TODO
 						int j = i;
 						while (lex.lexTable.table[j++].lexema != LEX_RIGHTBRACE)
 						{
@@ -321,14 +322,14 @@ namespace Gen
 			{
 				if (lex.idTable.table[lex.lexTable.table[i + 2].idxTI].idDataType == IT::USHORT)
 				{
-					out << "\tpush " << lex.idTable.table[lex.lexTable.table[i + 2].idxTI].idRegion << "\n\tcall printN\n";
+					out << "\tpush " << lex.idTable.table[lex.lexTable.table[i + 2].idxTI].idRegion << "\n\tcall _printN\n";
 				}
 				else
 				{
 					if(lex.idTable.table[lex.lexTable.table[i + 2].idxTI].idType == IT::L)
-						out << "\tpush offset " << lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id << "\n\tcall printS\n";
+						out << "\tpush offset " << lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id << "\n\tcall _printS\n";
 					else
-						out << "\tpush " << lex.idTable.table[lex.lexTable.table[i + 2].idxTI].idRegion << "\n\tcall printS\n";
+						out << "\tpush " << lex.idTable.table[lex.lexTable.table[i + 2].idxTI].idRegion << "\n\tcall _printS\n";
 				}
 				break;
 			}
