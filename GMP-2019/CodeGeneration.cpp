@@ -293,7 +293,13 @@ namespace Gen
 							out << "\tjl p" << numberOfPoints << endl;
 							out << "\tjg p" << numberOfPoints + 1<< endl;
 						}
-						// ÍÅĞÀÂÍÎ TODO
+						else if ((string)(const char*)lex.idTable.table[lex.lexTable.table[i + 2].idxTI].id == SEM_NOTEQUAL)
+						{
+							out << "\tjl p" << numberOfPoints << endl;
+							out << "\tjg p" << numberOfPoints << endl;
+							out << "\tje p" << numberOfPoints + 1 << endl;
+						}
+
 						int j = i;
 						while (lex.lexTable.table[j++].lexema != LEX_RIGHTBRACE)
 						{

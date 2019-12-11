@@ -1,2 +1,66 @@
 ﻿  CodeGeneration.cpp
+  Div.cpp
+  Error.cpp
+  FST.cpp
+d:\gmp-2019\gmp-2019\fst.cpp(22): warning C4018: <: несоответствие типов со знаком и без знака
+d:\gmp-2019\gmp-2019\fst.cpp(63): warning C4267: инициализация: преобразование из "size_t" в "short"; возможна потеря данных
+  GMP-2019.cpp
+  Greibach.cpp
+  IT.cpp
+  In.cpp
+d:\gmp-2019\gmp-2019\in.cpp(24): warning C4018: <: несоответствие типов со знаком и без знака
+  LT.cpp
+  LexAnaliz.cpp
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(266): warning C4244: =: преобразование "__int64" в "unsigned short", возможна потеря данных
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(76): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(111): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(149): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(150): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(161): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(190): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(191): warning C4996: '_mbscat': This function or variable may be unsafe. Consider using _mbscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(106): note:  см. объявление "_mbscat"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(244): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(245): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(250): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(251): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(298): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(299): warning C4996: '_mbscat': This function or variable may be unsafe. Consider using _mbscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(106): note:  см. объявление "_mbscat"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(300): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(301): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(319): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(326): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(327): warning C4996: '_mbscat': This function or variable may be unsafe. Consider using _mbscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(106): note:  см. объявление "_mbscat"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(328): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(329): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(384): warning C4996: '_mbscpy': This function or variable may be unsafe. Consider using _mbscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  d:\windows kits\10\include\10.0.17763.0\ucrt\mbstring.h(190): note:  см. объявление "_mbscpy"
+d:\gmp-2019\gmp-2019\lexanaliz.cpp(263): warning C4101: buf: неиспользованная локальная переменная
+  Log.cpp
+  MFST.cpp
+d:\gmp-2019\gmp-2019\mfst.cpp(273): warning C4267: =: преобразование из "size_t" в "short"; возможна потеря данных
+  Parm.cpp
+  SemAnaliz.cpp
+  TestLex.cpp
+  stdafx.cpp
+  Создание кода...
   GMP-2019.vcxproj -> D:\GMP-2019\Debug\GMP-2019.exe

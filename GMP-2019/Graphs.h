@@ -14,8 +14,8 @@
 	FST::NODE()
 
 #define FST_LOGICAL 3,	\
-	FST::NODE(6, FST::RELATION('>', 2), FST::RELATION('<', 2), FST::RELATION('>', 1), FST::RELATION('<', 1), FST::RELATION('=', 1), FST::RELATION('!', 1)),\
-	FST::NODE(1, FST::RELATION('=', 2)),\
+	FST::NODE(6, FST::RELATION('>', 2), FST::RELATION('<', 2), FST::RELATION('>', 1), FST::RELATION('<', 1),\
+	FST::RELATION('=', 1), FST::RELATION('!', 1)),FST::NODE(1, FST::RELATION('=', 2)),\
 	FST::NODE()
 
 #define FST_DECLARE 4,	\

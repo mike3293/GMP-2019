@@ -39,7 +39,7 @@ unsigned char** divideText(In::IN in)		// формирование массива строк, состоящего
 			word[j][k++] = text[i]; //запись сепаратора
 			if (text[i + 1] == LEX_EQUAL)
 			{
-				word[j][k++] = text[++i];
+				word[j][k++] = text[++i];	// запись логических операторов
 			}
 
 			word[j++][k] = IN_CODE_ENDL; //признак завершения разбора лексемы

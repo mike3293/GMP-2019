@@ -6,6 +6,7 @@
 #define SEM_EQUAL "=="
 #define SEM_GREATEQUAL ">="
 #define SEM_LESSEQUAL "<="
+#define SEM_NOTEQUAL "!="
 
 namespace Gen
 {
