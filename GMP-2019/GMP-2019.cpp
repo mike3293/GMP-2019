@@ -30,7 +30,7 @@ int _tmain(int argc, _TCHAR ** argv)
 		LT::Delete(lex.lexTable);
 		IT::Delete(lex.idTable);*/
 
-		MFST::Mfst mfst(lex, GRB::getGreibach(), true);
+		MFST::Mfst mfst(lex, GRB::getGreibach(), parm.trace);
 		if (!mfst.start())
 			throw ERROR_THROW(600);
 		std::cout << "Синтаксический анализ завершён без ошибок\n";

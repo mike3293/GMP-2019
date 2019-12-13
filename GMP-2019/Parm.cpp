@@ -3,7 +3,7 @@ namespace Parm
 {
 	PARM getparm(int argc, _TCHAR* argv[])
 	{
-		PARM Input = {}; //создание экземпляра структуры для хранения информации
+		PARM Input = { NULL, NULL, NULL, false }; //создание экземпляра структуры для хранения информации
 
 		for (int i = 1; i < argc; i++)
 		{
@@ -17,6 +17,8 @@ namespace Parm
 				wcscpy_s(Input.out, argv[i] + wcslen(PARM_OUT));
 			else if (wcsstr(argv[i], PARM_LOG))
 				wcscpy_s(Input.log, argv[i] + wcslen(PARM_LOG));
+			else if (wcsstr(argv[i], PARM_NOTRACE))
+				Input.trace = true;
 		}
 		if (wcslen(Input.in) == 0) //если параметр -in: не задан
 			throw ERROR_THROW(100);
