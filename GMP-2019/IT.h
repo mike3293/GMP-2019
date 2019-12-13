@@ -5,7 +5,7 @@
 #define TI_INT_DEFAULT	0x0000		// значение по умолчанию для типа integer
 #define TI_STR_DEFAULT	0x00		// значение по умолчанию для типа string
 #define TI_NULLIDX		0xffff		// нет элемента таблицы идентификаторов
-#define TI_STR_MAXSIZE	255			// 
+#define TI_STR_MAXSIZE	255			// длина строки
 
 namespace IT			// таблица идентификаторов
 {

@@ -276,6 +276,8 @@ namespace Lex
 				}
 				else
 				{
+					if(atoi((char*)word[i]) > MAX_USHORT)
+						throw ERROR_THROW_IN(208, line, 0);
 					value = atoi((char*)word[i]);	// значение литерала
 				}
 				for (int k = 0; k < idTable.size; k++) // поиск такого же

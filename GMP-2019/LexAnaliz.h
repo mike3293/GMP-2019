@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-
+#define MAX_USHORT 65535
 
 namespace Lex
 {
