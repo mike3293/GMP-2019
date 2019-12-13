@@ -49,6 +49,15 @@ namespace Lex
 
 			bool findSameID = false; 
 
+			FST::FST fstLib(word[i], FST_USELIB); // проверка на ключевое слово
+			if (FST::execute(fstLib))
+			{
+				LT::Entry entryLT;
+				writeEntry(entryLT, LEX_USELIB, LT_TI_NULLIDX, line); //создание структуры
+				LT::Add(lexTable, entryLT); //добавление структуры в таблицу
+				continue;
+			}
+
 			FST::FST fstIf(word[i], FST_IF); // проверка на ключевое слово
 			if (FST::execute(fstIf))
 			{

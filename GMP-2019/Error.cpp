@@ -43,7 +43,7 @@ namespace Error
 		ERROR_ENTRY(507,"SEM: Ошибка в параметрах функции compare()"), 
 		ERROR_ENTRY(508,"SEM: Попытка сравнения операндов не типа ushort"), 
 		ERROR_ENTRY(509,"SEM: Ошибка в параметре функции print()"), 
-		ERROR_ENTRY_NODEF10(510), ERROR_ENTRY_NODEF10(520),
+		ERROR_ENTRY(510,"SEM: Ошибка в подключении библиотеки"), ERROR_ENTRY_NODEF10(520),
 		ERROR_ENTRY_NODEF10(530), ERROR_ENTRY_NODEF10(540), ERROR_ENTRY_NODEF50(550),
 		ERROR_ENTRY(600,"SYN: Неверная структура программы"),
 		ERROR_ENTRY(601,"SYN: Ошибочная конструкция в функции"),

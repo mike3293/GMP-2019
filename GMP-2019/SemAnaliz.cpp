@@ -9,6 +9,13 @@ namespace Sem
 		{
 			switch (tables.lexTable.table[i].lexema)
 			{
+				case LEX_USELIB: // проверка uselib
+				{
+					if(tables.lexTable.table[++i].lexema == LEX_LITERAL)
+						if (tables.idTable.table[tables.lexTable.table[i].idxTI].idDataType == IT::STR)
+							break;
+					throw ERROR_THROW_IN(510, tables.lexTable.table[i].numOfString, 0);
+				}
 				case LEX_PRINT: // проверка print
 				{
 					i++;

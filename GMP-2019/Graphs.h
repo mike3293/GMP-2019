@@ -1,6 +1,15 @@
 #pragma once
 #include "FST.h"
 
+#define FST_USELIB 7,	\
+	FST::NODE(1, FST::RELATION('u', 1)),\
+	FST::NODE(1, FST::RELATION('s', 2)),\
+	FST::NODE(1, FST::RELATION('e', 3)),\
+	FST::NODE(1, FST::RELATION('l', 4)),\
+	FST::NODE(1, FST::RELATION('i', 5)),\
+	FST::NODE(1, FST::RELATION('b', 6)),\
+	FST::NODE()
+
 #define FST_IF 3,	\
 	FST::NODE(1, FST::RELATION('i', 1)),\
 	FST::NODE(1, FST::RELATION('f', 2)),\
@@ -156,7 +165,7 @@
 
 #define FST_STRLIT 3,	\
 	FST::NODE(1, FST::RELATION('\"', 1)),\
-	FST::NODE(73, \
+	FST::NODE(74, \
 		FST::RELATION('A', 1), FST::RELATION('B', 1), FST::RELATION('C', 1), FST::RELATION('D', 1),\
 		FST::RELATION('E', 1), FST::RELATION('F', 1), FST::RELATION('G', 1), FST::RELATION('H', 1),\
 		FST::RELATION('I', 1), FST::RELATION('J', 1), FST::RELATION('K', 1), FST::RELATION('L', 1),\
@@ -176,7 +185,7 @@
 		FST::RELATION('8', 1), FST::RELATION('9', 1),\
 		FST::RELATION(' ', 1), FST::RELATION(',', 1), FST::RELATION('.', 1), FST::RELATION(';', 1),\
 		FST::RELATION('=', 1), FST::RELATION(':', 1), FST::RELATION(')', 1), FST::RELATION('(', 1),\
-		FST::RELATION('!', 1), FST::RELATION('?', 1),\
+		FST::RELATION('!', 1), FST::RELATION('?', 1), FST::RELATION('/', 1),\
 		FST::RELATION('\"', 2)),\
 	FST::NODE()
 

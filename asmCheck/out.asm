@@ -13,16 +13,17 @@
 .stack 4096
 
 .const
-	L1 BYTE 'First argument more than second', 0
-	L2 BYTE 'Second argument more than first', 0
-	L3 WORD 17
-	L4 WORD 18
-	L5 BYTE 'Mikhail', 0
-	L6 WORD 1
-	L7 BYTE 'strings are not equal', 0
-	L8 WORD 2
-	L9 WORD 300
-	L10 WORD 0
+	L1 BYTE '../Debug/StaticLib.lib', 0
+	L2 BYTE 'First argument more than second', 0
+	L3 BYTE 'Second argument more than first', 0
+	L4 WORD 17
+	L5 WORD 18
+	L6 BYTE 'Mikhail', 0
+	L7 WORD 1
+	L8 BYTE 'strings are not equal', 0
+	L9 WORD 2
+	L10 WORD 300
+	L11 WORD 0
 
 .data
 	minresult WORD 0
@@ -61,11 +62,11 @@ ismore PROC ismorea : WORD, ismoreb : WORD
 	jl p3
 	je p3
 p2:
-	push offset L1
+	push offset L2
 	pop ismoreresult
 	jmp ife1
 p3:
-	push offset L2
+	push offset L3
 	pop ismoreresult
 ife1:
 	push ismoreresult
@@ -75,11 +76,11 @@ ismore ENDP
 
 
 main PROC
-	push L3
-	pop mainb
 	push L4
+	pop mainb
+	push L5
 	pop mainc
-	push offset L5
+	push offset L6
 	pop mainstr1
 	push mainstr1
 	pop mainstr2
@@ -89,7 +90,7 @@ main PROC
 	push eax
 	pop mainresult
 	mov ax, mainresult
-	cmp ax, L6
+	cmp ax, L7
 	je p4
 	jg p5
 	jl p5
@@ -103,7 +104,7 @@ p4:
 	pop maina
 	jmp ife2
 p5:
-	push offset L7
+	push offset L8
 	call _printS
 ife2:
 	mov ax, maina
@@ -112,7 +113,7 @@ ife2:
 	jg p6
 	jl p7
 p6:
-	movzx eax, L8
+	movzx eax, L9
 	push eax
 	movzx eax, mainc
 	push eax
@@ -122,7 +123,7 @@ p6:
 	push mainb
 	call _printN
 p7:
-	movzx eax, L9
+	movzx eax, L10
 	push eax
 	movzx eax, mainb
 	push eax
