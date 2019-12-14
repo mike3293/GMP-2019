@@ -11,11 +11,12 @@ namespace Gen
 			throw ERROR_THROW(113);
 
 		string libPath;
-		for (int i = 0; i < lex.lexTable.size; i++)
+		for (int i = 0; i < lex.lexTable.size && lex.lexTable.table[i].lexema != LEX_MAIN; i++)
 		{
 			if (lex.lexTable.table[i].lexema == LEX_USELIB)
 			{
 				libPath = (const char*)lex.idTable.table[lex.lexTable.table[i + 1].idxTI].value.vstr.str;
+				break;
 			}
 		}
 		out << ".586\n\t.model flat, stdcall\n\tincludelib libucrt.lib\n\tincludelib kernel32.lib";
