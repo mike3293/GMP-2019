@@ -144,8 +144,13 @@ namespace Lex
 			if (FST::execute(fstPrint))
 			{
 				LT::Entry entryLT;
-				writeEntry(entryLT, LEX_PRINT, LT_TI_NULLIDX, line);
+				writeEntry(entryLT, LEX_PRINT, indexID++, line);
 				LT::Add(lexTable, entryLT);
+				entryIT.idType = IT::LIB;
+				entryIT.idxfirstLE = indexLex;
+				_mbscpy(entryIT.id, word[i]);
+				_mbscpy(entryIT.idRegion, word[i]);
+				IT::Add(idTable, entryIT);
 				continue;
 			}
 			FST::FST fstMain(word[i], FST_MAIN);// проверка на ключевое слово
