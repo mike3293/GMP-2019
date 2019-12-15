@@ -70,13 +70,13 @@ namespace Sem
 						throw ERROR_THROW_IN(507, tables.lexTable.table[i].numOfString, 0);
 					break;
 				}
-				case LEX_ID: // проверка типа возвращаемого значения  
+				case LEX_ID: 
 				{
 					IT::Entry tmp = tables.idTable.table[tables.lexTable.table[i].idxTI];
 
 					if (i > 0 && tables.lexTable.table[i - 1].lexema == LEX_FUNCTION)
 					{
-						if (tmp.idType == IT::F) //функция, не процедура
+						if (tmp.idType == IT::F)
 						{
 							for (int k = i + 1; k != tables.lexTable.size; k++)
 							{
@@ -101,7 +101,6 @@ namespace Sem
 					{
 						if (tmp.idType == IT::F)
 						{
-							
 							std::queue<LT::Entry> queue;
 
 							int protoParamsCount = 0;
@@ -145,6 +144,9 @@ namespace Sem
 							}
 						}
 					}
+					char prevLex = tables.lexTable.table[i - 1].lexema;
+					if(tmp.idxfirstLE == i && prevLex != LEX_USHORT && prevLex != LEX_STRING && prevLex != LEX_FUNCTION)
+						throw ERROR_THROW_IN(203, tables.lexTable.table[i].numOfString, 0);
 					break;
 				}
 

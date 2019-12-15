@@ -20,7 +20,8 @@ namespace Gen
 			}
 		}
 		out << ".586\n\t.model flat, stdcall\n\tincludelib libucrt.lib\n\tincludelib kernel32.lib";
-		out << "\n\tincludelib " << libPath << "\n\n\tEXTERN _printS :PROC\n\tEXTERN _printN :PROC\n\tEXTERN _pow :PROC\n\tEXTERN _compare :PROC";
+		if(libPath.length() != 0)
+			out << "\n\tincludelib " << libPath << "\n\n\tEXTERN _printS :PROC\n\tEXTERN _printN :PROC\n\tEXTERN _pow :PROC\n\tEXTERN _compare :PROC";
 		out << "\n\tExitProcess PROTO :DWORD\n";
 		out << "\n.stack 4096\n";
 

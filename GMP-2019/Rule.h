@@ -14,11 +14,12 @@ namespace GRB
 		Rule(
 			NS('S'), 
 			GRB_ERROR_SERIES + 0,    // неверная структура программы
-			4,          
+			5,          
 			Rule::Chain(2, TS('u'), TS('l')),
 			Rule::Chain(3, TS('u'), TS('l'), NS('S')),
 			Rule::Chain(7, TS('m'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}')),
-			Rule::Chain(13, TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}'), NS('S'))
+			Rule::Chain(13, TS('t'), TS('f'), TS('i'), TS('('), NS('F'), TS(')'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}'), NS('S')),
+			Rule::Chain(12, TS('t'), TS('f'), TS('i'), TS('('), TS(')'), TS('{'), NS('N'), TS('r'), NS('E'), TS(';'), TS('}'), NS('S'))
 		),
 		Rule(
 			NS('N'), 
@@ -41,13 +42,16 @@ namespace GRB
 		Rule(
 			NS('E'), 
 			GRB_ERROR_SERIES + 2,    // ошибка в выражении
-			6,                                 
+			9,                                 
 			Rule::Chain(1, TS('i')),
 			Rule::Chain(1, TS('l')),
 			Rule::Chain(3, TS('('), NS('E'), TS(')')),
 			Rule::Chain(4, TS('i'), TS('('), NS('W'), TS(')')),
 			Rule::Chain(4, TS('b'), TS('('), NS('W'), TS(')')),
-			Rule::Chain(4, TS('a'), TS('('), NS('W'), TS(')'))
+			Rule::Chain(4, TS('a'), TS('('), NS('W'), TS(')')),
+			Rule::Chain(3, TS('i'), TS('('), TS(')')),
+			Rule::Chain(3, TS('b'), TS('('), TS(')')),
+			Rule::Chain(3, TS('a'), TS('('), TS(')'))
 		),
 		Rule(
 			NS('F'),

@@ -25,7 +25,7 @@ namespace In
 		{
 			if ((Info.code[(unsigned char)fulltext[i]] == IN::F)) //Если запрещённый символ => ошибка
 			{
-				throw ERROR_THROW_IN(111, currentLine, currentCol)
+				throw ERROR_THROW_IN(111, currentLine + 1, currentCol)
 			}
 			else if (Info.code[(unsigned char)fulltext[i]] == IN::I) // Если игнор символ 
 				++Info.ignor;
