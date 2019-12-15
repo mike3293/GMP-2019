@@ -385,8 +385,9 @@ namespace Lex
 				writeEntry(entryLT, LEX_LEFTTHESIS, LT_TI_NULLIDX, line);
 				entryLT.priority = 0;
 				LT::Add(lexTable, entryLT);
-				if (idTable.table[indexID - 1].idType == IT::F)
-					findParm = true;
+				if(indexID != 0)
+					if (idTable.table[indexID - 1].idType == IT::F)
+						findParm = true;
 				continue;
 			}
 			FST::FST fstRightThesis(word[i], FST_RIGHTTHESIS);
