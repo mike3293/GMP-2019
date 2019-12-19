@@ -1,2 +1,5 @@
 ﻿  Assembling out.asm...
+  LINK : не найден или не выполнена сборка C:\Users\admin\Desktop\LP\GMP-2019\Debug\asmCheck.exe при последней инкрементной компоновке; выполняется полная компоновка
+LINK : warning LNK4098: библиотека по умолчанию "libucrt.lib" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
+StaticLib.lib(Source.obj) : warning LNK4205: в "C:\Users\admin\Desktop\LP\GMP-2019\Debug\StaticLib.pdb" отсутствует текущие отладочные данные для ссылок на модуль; компоновка объекта выполняется как при отсутствии отладочных данных
   asmCheck.vcxproj -> C:\Users\admin\Desktop\LP\GMP-2019\Debug\asmCheck.exe
