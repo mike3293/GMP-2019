@@ -1,1 +1,4 @@
-﻿  StaticLib.vcxproj -> C:\Users\admin\Desktop\LP\GMP-2019\Debug\StaticLib.lib
+﻿  Source.cpp
+c:\users\admin\desktop\lp\gmp-2019\staticlib\source.cpp(24): warning C4297: _pow: ожидается, что функция не будет выдавать исключения, но она это делает
+  c:\users\admin\desktop\lp\gmp-2019\staticlib\source.cpp(24): note: Функция типа extern "C", указан параметр /EHc
+  StaticLib.vcxproj -> C:\Users\admin\Desktop\LP\GMP-2019\Debug\StaticLib.lib

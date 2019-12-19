@@ -38,4 +38,8 @@ extern "C" {
 			return 2;
 		return 0;
 	}
+
+	void _pause() {
+		system("pause");
+	}
 }

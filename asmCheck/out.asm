@@ -8,6 +8,7 @@
 	EXTERN _printN :PROC
 	EXTERN _pow :PROC
 	EXTERN _compare :PROC
+	EXTERN _pause :PROC
 	ExitProcess PROTO :DWORD
 
 .stack 4096
@@ -133,6 +134,7 @@ p7:
 	push mainstr1
 	call _printS
 	push 0
+	call _pause
 	call ExitProcess
 main ENDP
 end main
