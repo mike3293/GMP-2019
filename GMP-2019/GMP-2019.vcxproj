@@ -34,7 +34,6 @@
     <ClCompile Include="Parm.cpp" />
     <ClCompile Include="SemAnaliz.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="TestLex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CodeGeneration.h" />

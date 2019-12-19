@@ -1,0 +1,57 @@
+uselib "../Debug/StaticLib.lib"
+
+ushort function min(ushort a, ushort b)
+{
+	var ushort result;
+	if (b < a) {
+		result = b;
+	} else {
+		result = a;
+	}
+	return result;
+}
+
+line function ismore(ushort a, ushort b)
+{
+	var line result;
+	if (a > b) {
+		result = "First argument more than second";
+	} else {
+		result = "Second argument more than first";
+	}
+	return result;
+}
+
+main
+{
+	[var line s234;]
+	var line str1;
+	var line str2;
+	var ushort a;
+	var ushort b;
+	var ushort c;
+	var ushort result;
+	b = 0x0011;
+	c = 18;
+		
+	str1 = "Mikhail";
+	str2 = str1;
+	
+	result = compare(str1, str2);
+
+	if(result == 1) {
+		a = min(b, c);
+	} else {
+		print("strings are not equal");
+	}
+	
+	if(a >= b) {
+		b = pow(c, 2);
+		print(b);
+	}
+	
+	str1 = ismore(b, 300);
+	print(str1);
+
+	return 0;
+}

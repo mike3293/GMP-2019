@@ -18,6 +18,11 @@ extern "C" {
 		unsigned short accum = 1;
 		for (int i = 0; i < exponent; i++)
 		{
+			if (accum*num > 65535)
+			{
+				std::cout << "Overflow in pow()" << std::endl;
+				throw -1;
+			}
 			accum *= num;
 		}
 		return accum;
