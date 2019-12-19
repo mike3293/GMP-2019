@@ -1,2 +1,4 @@
 ﻿  Assembling out.asm...
-  asmCheck.vcxproj -> D:\GMP-2019\Debug\asmCheck.exe
+  LINK : не найден или не выполнена сборка C:\Users\admin\Desktop\LP\GMP-2019\Debug\asmCheck.exe при последней инкрементной компоновке; выполняется полная компоновка
+LINK : warning LNK4098: библиотека по умолчанию "libucrt.lib" противоречит использованию других библиотек; используйте параметр /NODEFAULTLIB:library
+  asmCheck.vcxproj -> C:\Users\admin\Desktop\LP\GMP-2019\Debug\asmCheck.exe

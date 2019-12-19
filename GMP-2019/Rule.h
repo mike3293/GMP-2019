@@ -42,16 +42,13 @@ namespace GRB
 		Rule(
 			NS('E'), 
 			GRB_ERROR_SERIES + 2,    // ошибка в выражении
-			9,                                 
+			6,                                 
 			Rule::Chain(1, TS('i')),
 			Rule::Chain(1, TS('l')),
-			Rule::Chain(3, TS('('), NS('E'), TS(')')),
 			Rule::Chain(4, TS('i'), TS('('), NS('W'), TS(')')),
 			Rule::Chain(4, TS('b'), TS('('), NS('W'), TS(')')),
 			Rule::Chain(4, TS('a'), TS('('), NS('W'), TS(')')),
-			Rule::Chain(3, TS('i'), TS('('), TS(')')),
-			Rule::Chain(3, TS('b'), TS('('), TS(')')),
-			Rule::Chain(3, TS('a'), TS('('), TS(')'))
+			Rule::Chain(3, TS('i'), TS('('), TS(')'))
 		),
 		Rule(
 			NS('F'),
